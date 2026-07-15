@@ -5,10 +5,6 @@ import { motion } from "framer-motion";
 
 interface InvitationMessageProps {
   text: string;
-  namesFont?: string;
-  namesSize?: string;
-  bodySize?: string;
-  stylesObj?: any;
 }
 
 /** Decorative arabesque corner ornament for the invitation frame */
@@ -154,13 +150,7 @@ function InvitationDivider() {
   );
 }
 
-export default function InvitationMessage({
-  text,
-  namesFont,
-  namesSize,
-  bodySize,
-  stylesObj,
-}: InvitationMessageProps) {
+export default function InvitationMessage({ text }: InvitationMessageProps) {
   const paragraphs = text.split("\n").filter((p) => p.trim() !== "");
 
   const containerVariants = {
@@ -228,14 +218,16 @@ export default function InvitationMessage({
                     para.includes("آياته") ||
                     para.includes("صدق الله العظيم");
 
-                  // Detect names line (common Arabic names)
-                  const namePatterns = [
-                    "أحمد", "محمد", "فيصل", "عبدالله", "خالد", "سلطان", "عمر",
-                    "نورا", "سارة", "فاطمة", "مريم", "هند", "لطيفة", "ريم",
-                  ];
-                  const isNames = namePatterns.some((name) =>
-                    para.includes(name)
-                  );
+                  // Detect main couple names line
+                  const isCoupleNames =
+                    (para.includes("أحمد") || para.includes("احمد")) &&
+                    (para.includes("نورا") || para.includes("نورة"));
+
+                  // Detect parents' lines
+                  const isParents =
+                    para.includes("نجل") ||
+                    para.includes("كريمة") ||
+                    (para.trim() === "و" && paragraphs[index - 1]?.includes("نجل"));
 
                   if (isVerse) {
                     return (
@@ -264,7 +256,7 @@ export default function InvitationMessage({
                     );
                   }
 
-                  if (isNames) {
+                  if (isCoupleNames) {
                     const cleanPara = para.replace(" & ", " و ").replace("(", "").replace(")", "").trim();
                     return (
                       <motion.div
@@ -272,41 +264,39 @@ export default function InvitationMessage({
                         variants={itemVariants}
                         className="my-10 flex justify-center items-center"
                       >
-                        <h3 className={`${namesSize || "text-4.5xl md:text-6.5xl"} ${namesFont || "font-messiri"} font-bold text-[#1A1A1A] leading-relaxed select-none`}>
+                        <h3 className="text-4.5xl md:text-6.5xl font-messiri font-bold text-[#1A1A1A] leading-relaxed select-none">
                           {cleanPara}
                         </h3>
                       </motion.div>
                     );
                   }
 
-                  const words = para.split(" ");
+                  if (isParents) {
+                    const isSeparator = para.trim() === "و";
+                    return (
+                      <motion.p
+                        key={index}
+                        variants={itemVariants}
+                        className={`text-center leading-relaxed ${
+                          isSeparator 
+                            ? "text-lg md:text-xl text-[#C8A46B] my-1" 
+                            : "text-lg md:text-xl text-[#5C5446] font-medium my-2"
+                        }`}
+                        style={{ fontFamily: "var(--font-amiri), Amiri, serif" }}
+                      >
+                        {para}
+                      </motion.p>
+                    );
+                  }
+
                   return (
                     <motion.p
                       key={index}
                       variants={itemVariants}
-                      className={`${bodySize || "text-xl md:text-2xl"} text-[#1A1A1A] leading-[2.6] flex flex-wrap justify-center gap-x-1.5`}
+                      className="text-xl md:text-2xl text-[#1A1A1A] leading-[2.6]"
                       style={{ fontFamily: "var(--font-amiri), Amiri, serif" }}
                     >
-                      {words.map((word, wordIdx) => {
-                        const wordKey = `${index}-${wordIdx}`;
-                        const customStyle = stylesObj?.wordStyles?.[wordKey];
-                        if (customStyle) {
-                          const { color, font, size, effect } = customStyle;
-                          return (
-                            <span
-                              key={wordIdx}
-                              className={`${font || ""} ${size || ""} ${effect || ""} transition-all duration-300`}
-                              style={{
-                                color: color || undefined,
-                                fontFamily: font ? `var(--font-${font.replace("font-", "")})` : undefined
-                              }}
-                            >
-                              {word}
-                            </span>
-                          );
-                        }
-                        return <span key={wordIdx}>{word}</span>;
-                      })}
+                      {para}
                     </motion.p>
                   );
                 })}
