@@ -258,15 +258,16 @@ export default function Envelope({ onOpen, brideName, groomName, brideNameEn, gr
                   </div>
                 </div>
 
-                {/* ===== TOP FLAP (opens upward with real 3D, goes behind the card when open) ===== */}
+                {/* ===== TOP FLAP (opens upward with real 3D, goes behind the card and fades out when open) ===== */}
                 <motion.div
-                  initial={{ rotateX: 0 }}
+                  initial={{ rotateX: 0, opacity: 1 }}
                   animate={{ 
                     rotateX: flapShouldOpen ? -180 : 0,
+                    opacity: cardShouldSlide ? 0 : 1,
                   }}
                   transition={{ 
-                    duration: 1.0, 
-                    ease: [0.45, 0, 0.55, 1] as const 
+                    rotateX: { duration: 1.0, ease: [0.45, 0, 0.55, 1] as const },
+                    opacity: { duration: 0.3, ease: "easeInOut" }
                   }}
                   className="absolute inset-0"
                   style={{
@@ -354,6 +355,33 @@ export default function Envelope({ onOpen, brideName, groomName, brideNameEn, gr
           </AnimatePresence>
         </div>
       </motion.div>
+
+      {/* Pulse Hint Text below envelope */}
+      <AnimatePresence>
+        {phase === "idle" && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ 
+              opacity: [0.35, 1, 0.35],
+              y: 0 
+            }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{
+              opacity: {
+                repeat: Infinity,
+                duration: 1.8,
+                ease: "easeInOut"
+              },
+              y: { duration: 0.5 }
+            }}
+            className="absolute bottom-28 z-20 flex flex-col items-center pointer-events-none"
+          >
+            <p className="font-arabic text-sm md:text-base text-[#9E7D46] font-semibold tracking-wide">
+              افتح الظرف
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Brand footer */}
       <motion.div
