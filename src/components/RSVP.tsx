@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, X, CalendarCheck, Heart, User, Users, Phone, MessageSquare } from "lucide-react";
+import { playPaperRustle } from "@/utils/audio";
 import confetti from "canvas-confetti";
 
 /* ───────── Ornamental SVG Divider ───────── */
@@ -194,7 +195,15 @@ export default function RSVP() {
         </motion.div>
 
         {/* ─── Form / Result ─── */}
-        <AnimatePresence mode="wait">
+        <motion.div
+          initial={{ opacity: 0, y: 60, rotate: -1.5, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-120px" }}
+          onViewportEnter={() => playPaperRustle()}
+          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] as const }}
+          className="relative"
+        >
+          <AnimatePresence mode="wait">
           {isSubmitted && localRSVP ? (
             /* ═══════ SUBMITTED STATE ═══════ */
             <motion.div
@@ -422,7 +431,8 @@ export default function RSVP() {
               </div>
             </motion.div>
           )}
-        </AnimatePresence>
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );

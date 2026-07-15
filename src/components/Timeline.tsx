@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { TimelineEvent } from "@/config/wedding";
+import { playPaperRustle } from "@/utils/audio";
 
 interface TimelineProps {
   events: TimelineEvent[];
@@ -61,12 +62,13 @@ export default function Timeline({ events }: TimelineProps) {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, x: -40, scale: 0.95 },
+    hidden: { opacity: 0, x: -50, rotate: -1, scale: 0.97 },
     visible: {
       opacity: 1,
       x: 0,
+      rotate: 0,
       scale: 1,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const },
+      transition: { duration: 1.0, ease: [0.16, 1, 0.3, 1] as const },
     },
   };
 
@@ -101,7 +103,8 @@ export default function Timeline({ events }: TimelineProps) {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-120px" }}
+          onViewportEnter={() => playPaperRustle()}
           className="relative mr-4 md:mr-8 space-y-10 pb-4"
         >
           {/* Gold connecting line */}

@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { playPaperRustle } from "@/utils/audio";
 
 interface InvitationMessageProps {
   text: string;
@@ -57,11 +58,13 @@ export default function InvitationMessage({ text }: InvitationMessageProps) {
   const paragraphs = text.split("\n").map((p) => p.trim()).filter(Boolean);
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 60, rotate: -1.5, scale: 0.98 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] as const },
+      rotate: 0,
+      scale: 1,
+      transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1] as const },
     },
   };
 
@@ -80,7 +83,8 @@ export default function InvitationMessage({ text }: InvitationMessageProps) {
           variants={cardVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, margin: "-120px" }}
+          onViewportEnter={() => playPaperRustle()}
           className="w-full max-w-[700px] mx-auto rounded-[28px] bg-[#FCFAF7] border border-[#D8C2A8]/45 p-3 md:p-4 shadow-[0_12px_40px_rgba(122,110,99,0.06)]"
         >
           {/* Inner card container showing the double border */}

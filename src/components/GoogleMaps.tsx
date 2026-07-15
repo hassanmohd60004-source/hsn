@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { MapPin, Navigation } from "lucide-react";
+import { playPaperRustle } from "@/utils/audio";
 
 interface GoogleMapsProps {
   embedUrl?: string;
@@ -87,10 +88,11 @@ export default function GoogleMaps({ embedUrl, mapsLink, hallName }: GoogleMapsP
 
         {/* ─── Map Container ─── */}
         <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.97 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] as const }}
+          initial={{ opacity: 0, y: 60, rotate: 1.5, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-120px" }}
+          onViewportEnter={() => playPaperRustle()}
+          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] as const }}
           className="relative group"
         >
           {/* Outer glow */}

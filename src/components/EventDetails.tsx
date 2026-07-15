@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { MapPin, Calendar, Clock } from "lucide-react";
+import { playPaperRustle } from "@/utils/audio";
 
 interface EventDetailsProps {
   hallName: string;
@@ -104,12 +105,13 @@ export default function EventDetails({
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 40, scale: 0.95 },
+    hidden: { opacity: 0, y: 50, rotate: -1.5, scale: 0.97 },
     visible: {
       opacity: 1,
       y: 0,
+      rotate: 0,
       scale: 1,
-      transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] as const },
+      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] as const },
     },
   };
 
@@ -155,7 +157,8 @@ export default function EventDetails({
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-120px" }}
+          onViewportEnter={() => playPaperRustle()}
           className="grid grid-cols-1 md:grid-cols-3 gap-8"
         >
           {cards.map((card, index) => {

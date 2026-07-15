@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Share2, Copy, Check, MessageCircle } from "lucide-react";
+import { playPaperRustle } from "@/utils/audio";
 
 interface ShareSectionProps {
   shareMessage: string;
@@ -106,10 +107,11 @@ export default function ShareSection({ shareMessage, brideName, groomName }: Sha
       </div>
 
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }}
+        initial={{ opacity: 0, y: 60, rotate: -1, scale: 0.98 }}
+        whileInView={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
+        viewport={{ once: true, margin: "-120px" }}
+        onViewportEnter={() => playPaperRustle()}
+        transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] as const }}
         className="max-w-lg mx-auto space-y-10 relative z-10"
       >
         {/* ─── Section Header ─── */}
