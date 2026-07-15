@@ -188,7 +188,7 @@ export default function HeroInvitation({
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1.2, ease: "easeOut", delay: 0.4 }}
-            className="text-5xl md:text-6xl font-marhey text-[#222222] font-semibold"
+            className="text-5xl md:text-6xl font-ruqaa text-[#222222] font-normal"
           >
             {groomName}
           </motion.h1>
@@ -197,7 +197,7 @@ export default function HeroInvitation({
           <div className="w-12 h-[0.7px] bg-[#C9A77B]/30" />
 
           {/* Connecting word */}
-          <span className="text-[#C9A77B] font-marhey text-lg md:text-xl font-medium">
+          <span className="text-[#C9A77B] font-ruqaa text-2xl md:text-3xl font-normal select-none">
             و
           </span>
 
@@ -209,7 +209,7 @@ export default function HeroInvitation({
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1.2, ease: "easeOut", delay: 0.6 }}
-            className="text-5xl md:text-6xl font-marhey text-[#222222] font-semibold"
+            className="text-5xl md:text-6xl font-ruqaa text-[#222222] font-normal"
           >
             {brideName}
           </motion.h1>
