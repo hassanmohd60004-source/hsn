@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { weddingConfig } from "@/config/wedding";
 import Envelope from "@/components/Envelope";
@@ -21,18 +21,24 @@ const defaultStyles = {
   namesFont: "font-messiri",
   namesSize: "text-4.5xl md:text-6.5xl",
   bodySize: "text-xl md:text-2xl",
+  wordStyles: {} as Record<string, any>,
 };
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDev, setIsDev] = useState(false);
   
-  // Hydration-safe states
+  // Master states
   const [config, setConfig] = useState<typeof weddingConfig>(weddingConfig);
   const [styles, setStyles] = useState(defaultStyles);
 
+  // Undo/Redo history stack states
+  const [history, setHistory] = useState<{ config: any; styles: any }[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const isUndoingOrRedoing = useRef(false);
+
+  // Initialize and check localhost
   useEffect(() => {
-    // Detect if running on localhost / network dev port
     const hostname = window.location.hostname;
     if (
       hostname === "localhost" ||
@@ -44,10 +50,14 @@ export default function Home() {
     }
 
     // Load saved local configs
+    let initialConfig = weddingConfig;
+    let initialStyles = defaultStyles;
+
     const savedConfig = localStorage.getItem("local_wedding_config");
     if (savedConfig) {
       try {
-        setConfig(JSON.parse(savedConfig));
+        initialConfig = JSON.parse(savedConfig);
+        setConfig(initialConfig);
       } catch (e) {
         console.error(e);
       }
@@ -56,32 +66,89 @@ export default function Home() {
     const savedStyles = localStorage.getItem("local_wedding_styles");
     if (savedStyles) {
       try {
-        setStyles(JSON.parse(savedStyles));
+        initialStyles = JSON.parse(savedStyles);
+        setStyles(initialStyles);
       } catch (e) {
         console.error(e);
       }
     }
+
+    // Initialize history stack
+    setHistory([{ config: initialConfig, styles: initialStyles }]);
+    setHistoryIndex(0);
   }, []);
 
-  // Update localStorage when configs change
+  // Sync state modifications to history stack (debounced by 400ms)
   useEffect(() => {
-    if (config !== weddingConfig) {
-      localStorage.setItem("local_wedding_config", JSON.stringify(config));
-    }
-  }, [config]);
+    if (historyIndex === -1) return;
 
-  useEffect(() => {
-    if (styles !== defaultStyles) {
-      localStorage.setItem("local_wedding_styles", JSON.stringify(styles));
+    if (isUndoingOrRedoing.current) {
+      isUndoingOrRedoing.current = false;
+      return;
     }
-    
-    // Dynamically update CSS custom properties
+
+    const handler = setTimeout(() => {
+      // Check if current states are actually different from the last history snapshot
+      const currentSnapshot = history[historyIndex];
+      if (
+        currentSnapshot &&
+        JSON.stringify(currentSnapshot.config) === JSON.stringify(config) &&
+        JSON.stringify(currentSnapshot.styles) === JSON.stringify(styles)
+      ) {
+        return;
+      }
+
+      // Truncate redo history and push new state
+      const newHistory = history.slice(0, historyIndex + 1);
+      const updatedHistory = [...newHistory, { config, styles }];
+      
+      setHistory(updatedHistory);
+      setHistoryIndex(updatedHistory.length - 1);
+
+      // Save to localStorage
+      localStorage.setItem("local_wedding_config", JSON.stringify(config));
+      localStorage.setItem("local_wedding_styles", JSON.stringify(styles));
+    }, 400);
+
+    return () => clearTimeout(handler);
+  }, [config, styles]);
+
+  // Synchronize CSS custom properties
+  useEffect(() => {
     if (typeof window !== "undefined") {
       document.documentElement.style.setProperty("--background", styles.background);
       document.documentElement.style.setProperty("--gold", styles.gold);
       document.documentElement.style.setProperty("--foreground", styles.textColor);
     }
   }, [styles]);
+
+  // Undo / Redo Actions
+  const handleUndo = () => {
+    if (historyIndex > 0) {
+      const prevIndex = historyIndex - 1;
+      const snapshot = history[prevIndex];
+      isUndoingOrRedoing.current = true;
+      setHistoryIndex(prevIndex);
+      setConfig(snapshot.config);
+      setStyles(snapshot.styles);
+      // Force update localStorage
+      localStorage.setItem("local_wedding_config", JSON.stringify(snapshot.config));
+      localStorage.setItem("local_wedding_styles", JSON.stringify(snapshot.styles));
+    }
+  };
+
+  const handleRedo = () => {
+    if (historyIndex < history.length - 1) {
+      const nextIndex = historyIndex + 1;
+      const snapshot = history[nextIndex];
+      isUndoingOrRedoing.current = true;
+      setHistoryIndex(nextIndex);
+      setConfig(snapshot.config);
+      setStyles(snapshot.styles);
+      localStorage.setItem("local_wedding_config", JSON.stringify(snapshot.config));
+      localStorage.setItem("local_wedding_styles", JSON.stringify(snapshot.styles));
+    }
+  };
 
   const handleReset = () => {
     localStorage.removeItem("local_wedding_config");
@@ -131,6 +198,7 @@ export default function Home() {
               namesFont={styles.namesFont}
               namesSize={styles.namesSize}
               bodySize={styles.bodySize}
+              stylesObj={styles}
             />
 
             {/* Google Maps Location */}
@@ -172,6 +240,10 @@ export default function Home() {
                 styles={styles}
                 onChangeStyles={setStyles}
                 onReset={handleReset}
+                canUndo={historyIndex > 0}
+                canRedo={historyIndex < history.length - 1}
+                onUndo={handleUndo}
+                onRedo={handleRedo}
               />
             )}
           </motion.div>

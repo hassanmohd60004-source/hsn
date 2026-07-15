@@ -8,6 +8,7 @@ interface InvitationMessageProps {
   namesFont?: string;
   namesSize?: string;
   bodySize?: string;
+  stylesObj?: any;
 }
 
 /** Decorative arabesque corner ornament for the invitation frame */
@@ -158,6 +159,7 @@ export default function InvitationMessage({
   namesFont,
   namesSize,
   bodySize,
+  stylesObj,
 }: InvitationMessageProps) {
   const paragraphs = text.split("\n").filter((p) => p.trim() !== "");
 
@@ -277,14 +279,34 @@ export default function InvitationMessage({
                     );
                   }
 
+                  const words = para.split(" ");
                   return (
                     <motion.p
                       key={index}
                       variants={itemVariants}
-                      className={`${bodySize || "text-xl md:text-2xl"} text-[#1A1A1A] leading-[2.6]`}
+                      className={`${bodySize || "text-xl md:text-2xl"} text-[#1A1A1A] leading-[2.6] flex flex-wrap justify-center gap-x-1.5`}
                       style={{ fontFamily: "var(--font-amiri), Amiri, serif" }}
                     >
-                      {para}
+                      {words.map((word, wordIdx) => {
+                        const wordKey = `${index}-${wordIdx}`;
+                        const customStyle = stylesObj?.wordStyles?.[wordKey];
+                        if (customStyle) {
+                          const { color, font, size, effect } = customStyle;
+                          return (
+                            <span
+                              key={wordIdx}
+                              className={`${font || ""} ${size || ""} ${effect || ""} transition-all duration-300`}
+                              style={{
+                                color: color || undefined,
+                                fontFamily: font ? `var(--font-${font.replace("font-", "")})` : undefined
+                              }}
+                            >
+                              {word}
+                            </span>
+                          );
+                        }
+                        return <span key={wordIdx}>{word}</span>;
+                      })}
                     </motion.p>
                   );
                 })}
