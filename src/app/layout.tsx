@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cairo, Cormorant_Garamond, Amiri, Aref_Ruqaa, El_Messiri } from "next/font/google";
+import { Cairo, Cormorant_Garamond, Amiri, Aref_Ruqaa, El_Messiri, Marhey } from "next/font/google";
 import "./globals.css";
 
 const cairo = Cairo({
@@ -37,6 +37,13 @@ const elMessiri = El_Messiri({
   display: "swap",
 });
 
+const marhey = Marhey({
+  subsets: ["arabic"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-marhey",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "دعوة زفاف أحمد & نورا | الفرحة الكبرى",
   description: "تشرفنا دعوتكم لمشاركتنا أجمل لحظات العمر في حفل زفاف أحمد ونورا. نسعد بوجودكم معنا.",
@@ -63,7 +70,7 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className={`${cairo.variable} ${cormorant.variable} ${amiri.variable} ${arefRuqaa.variable} ${elMessiri.variable} h-full antialiased`}
+      className={`${cairo.variable} ${cormorant.variable} ${amiri.variable} ${arefRuqaa.variable} ${elMessiri.variable} ${marhey.variable} h-full antialiased`}
     >
       <body className="min-h-full font-arabic antialiased bg-background text-foreground bg-grain">
         {children}

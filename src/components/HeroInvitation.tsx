@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 
 interface HeroInvitationProps {
@@ -9,181 +9,32 @@ interface HeroInvitationProps {
   countdownDate: string;
   hijriDate: string;
   gregorianDate: string;
-  namesFont?: string;
 }
 
-/* ──── Ornamental SVG Components ──── */
-
-/** Arabesque corner flourish – positioned absolutely in each corner */
-function CornerFlourish({ className }: { className?: string }) {
+/** Elegant botanical branch vector illustration for opposite corners */
+function BotanicalBranch({ className }: { className?: string }) {
   return (
     <svg
       className={className}
-      width="120"
-      height="120"
       viewBox="0 0 120 120"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"
+      stroke="currentColor"
+      strokeWidth="1.0"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
-      {/* Outer sweeping curve */}
-      <path
-        d="M5 115 C5 60, 60 5, 115 5"
-        stroke="url(#cornerGrad)"
-        strokeWidth="1.5"
-        fill="none"
-      />
-      {/* Inner decorative curve */}
-      <path
-        d="M15 115 C15 70, 70 15, 115 15"
-        stroke="url(#cornerGrad)"
-        strokeWidth="0.8"
-        fill="none"
-        strokeDasharray="4 3"
-      />
-      {/* Leaf / teardrop motif */}
-      <path
-        d="M30 100 Q20 80, 40 70 Q60 60, 70 40 Q80 20, 100 30"
-        stroke="url(#cornerGrad)"
-        strokeWidth="1"
-        fill="none"
-      />
-      {/* Tiny diamond accent */}
-      <path
-        d="M55 65 L60 58 L65 65 L60 72 Z"
-        fill="rgba(200,164,107,0.3)"
-        stroke="rgba(200,164,107,0.5)"
-        strokeWidth="0.5"
-      />
-      {/* Spiral curl */}
-      <path
-        d="M85 25 Q90 35, 80 40 Q70 45, 75 55"
-        stroke="rgba(200,164,107,0.4)"
-        strokeWidth="0.8"
-        fill="none"
-      />
-      <defs>
-        <linearGradient id="cornerGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="rgba(200,164,107,0.1)" />
-          <stop offset="50%" stopColor="rgba(200,164,107,0.5)" />
-          <stop offset="100%" stopColor="rgba(200,164,107,0.15)" />
-        </linearGradient>
-      </defs>
-    </svg>
-  );
-}
-
-/** Ornamental arabesque divider with intricate gold pattern */
-function ArabesqueDivider({ width = 280 }: { width?: number }) {
-  return (
-    <svg
-      width={width}
-      height="40"
-      viewBox="0 0 280 40"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="mx-auto"
-    >
-      {/* Left flowing branch */}
-      <path
-        d="M0 20 Q30 20, 50 12 Q70 4, 90 10 Q105 15, 115 20"
-        stroke="url(#divGrad)"
-        strokeWidth="1.2"
-        fill="none"
-      />
-      <path
-        d="M0 20 Q30 20, 50 28 Q70 36, 90 30 Q105 25, 115 20"
-        stroke="url(#divGrad)"
-        strokeWidth="1.2"
-        fill="none"
-      />
-      {/* Left leaves */}
-      <path
-        d="M50 12 Q55 4, 60 10"
-        stroke="rgba(200,164,107,0.5)"
-        strokeWidth="0.8"
-        fill="none"
-      />
-      <path
-        d="M70 6 Q75 0, 78 8"
-        stroke="rgba(200,164,107,0.4)"
-        strokeWidth="0.8"
-        fill="none"
-      />
-      <path
-        d="M50 28 Q55 36, 60 30"
-        stroke="rgba(200,164,107,0.5)"
-        strokeWidth="0.8"
-        fill="none"
-      />
-
-      {/* Center ornament – layered diamond */}
-      <rect
-        x="130"
-        y="10"
-        width="20"
-        height="20"
-        rx="2"
-        transform="rotate(45 140 20)"
-        stroke="url(#divGrad)"
-        strokeWidth="1.2"
-        fill="rgba(200,164,107,0.08)"
-      />
-      <rect
-        x="134"
-        y="14"
-        width="12"
-        height="12"
-        rx="1"
-        transform="rotate(45 140 20)"
-        stroke="rgba(200,164,107,0.4)"
-        strokeWidth="0.8"
-        fill="rgba(200,164,107,0.05)"
-      />
-      {/* Center dot */}
-      <circle cx="140" cy="20" r="2" fill="rgba(200,164,107,0.6)" />
-
-      {/* Right flowing branch (mirrored) */}
-      <path
-        d="M280 20 Q250 20, 230 12 Q210 4, 190 10 Q175 15, 165 20"
-        stroke="url(#divGrad)"
-        strokeWidth="1.2"
-        fill="none"
-      />
-      <path
-        d="M280 20 Q250 20, 230 28 Q210 36, 190 30 Q175 25, 165 20"
-        stroke="url(#divGrad)"
-        strokeWidth="1.2"
-        fill="none"
-      />
-      {/* Right leaves */}
-      <path
-        d="M230 12 Q225 4, 220 10"
-        stroke="rgba(200,164,107,0.5)"
-        strokeWidth="0.8"
-        fill="none"
-      />
-      <path
-        d="M210 6 Q205 0, 202 8"
-        stroke="rgba(200,164,107,0.4)"
-        strokeWidth="0.8"
-        fill="none"
-      />
-      <path
-        d="M230 28 Q225 36, 220 30"
-        stroke="rgba(200,164,107,0.5)"
-        strokeWidth="0.8"
-        fill="none"
-      />
-
-      <defs>
-        <linearGradient id="divGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="rgba(200,164,107,0.05)" />
-          <stop offset="30%" stopColor="rgba(200,164,107,0.6)" />
-          <stop offset="50%" stopColor="rgba(200,164,107,0.8)" />
-          <stop offset="70%" stopColor="rgba(200,164,107,0.6)" />
-          <stop offset="100%" stopColor="rgba(200,164,107,0.05)" />
-        </linearGradient>
-      </defs>
+      {/* Delicate main stem */}
+      <path d="M10 110 C 35 90, 65 55, 105 15" />
+      {/* Detailed hand-drawn leaves */}
+      <path d="M35 85 C 22 75, 25 62, 42 70 C 42 70 38 80 35 85 Z" fill="currentColor" fillOpacity="0.03" />
+      <path d="M52 68 C 38 58, 42 45, 58 52 C 58 52 55 62 52 68 Z" fill="currentColor" fillOpacity="0.03" />
+      <path d="M70 50 C 58 38, 62 25, 78 32 C 78 32 75 42 70 50 Z" fill="currentColor" fillOpacity="0.03" />
+      <path d="M88 32 C 78 20, 82 8, 95 15 C 95 15 92 25 88 32 Z" fill="currentColor" fillOpacity="0.03" />
+      {/* Opposite leaves */}
+      <path d="M28 92 C 40 102, 50 92, 40 85 C 40 85 32 88 28 92 Z" fill="currentColor" fillOpacity="0.03" />
+      <path d="M45 75 C 58 85, 68 75, 58 68 C 58 68 50 70 45 75 Z" fill="currentColor" fillOpacity="0.03" />
+      <path d="M62 57 C 75 67, 85 57, 75 50 C 75 50 68 52 62 57 Z" fill="currentColor" fillOpacity="0.03" />
+      <path d="M80 38 C 92 48, 102 38, 92 31 C 92 31 85 33 80 38 Z" fill="currentColor" fillOpacity="0.03" />
     </svg>
   );
 }
@@ -194,253 +45,222 @@ export default function HeroInvitation({
   countdownDate,
   hijriDate,
   gregorianDate,
-  namesFont,
 }: HeroInvitationProps) {
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
-
-  useEffect(() => {
-    const targetDate = new Date(countdownDate).getTime();
-
-    const updateTimer = () => {
-      const now = new Date().getTime();
-      const difference = targetDate - now;
-
-      if (difference <= 0) {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-        return;
-      }
-
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-      const minutes = Math.floor(
-        (difference % (1000 * 60 * 60)) / (1000 * 60)
-      );
-      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-      setTimeLeft({ days, hours, minutes, seconds });
-    };
-
-    updateTimer();
-    const interval = setInterval(updateTimer, 1000);
-
-    return () => clearInterval(interval);
-  }, [countdownDate]);
-
-  // Convert English numbers to Arabic numbers helper
-  const toArabicNums = (num: number) => {
-    const arabicNums = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
-    return num
-      .toString()
-      .split("")
-      .map((d) => (isNaN(parseInt(d)) ? d : arabicNums[parseInt(d)]))
-      .join("");
-  };
-
-  // Framer Motion animation presets – staggered cascade
-  const containerVariants = {
-    hidden: { opacity: 0 },
+  // Animation configs
+  const mainFadeUp = {
+    hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
+      y: 0,
+      transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  };
+
+  const slowFloatTopRight = {
+    animate: {
+      y: [0, -8, 0],
+      x: [0, 4, 0],
+      rotate: [90, 93, 90],
       transition: {
-        staggerChildren: 0.25,
-        delayChildren: 0.15,
+        duration: 9,
+        repeat: Infinity,
+        ease: "easeInOut" as const,
       },
     },
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 40, scale: 0.97 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { duration: 1, ease: [0.16, 1, 0.3, 1] as const },
+  const slowFloatBottomLeft = {
+    animate: {
+      y: [0, 8, 0],
+      x: [0, -4, 0],
+      rotate: [-90, -93, -90],
+      transition: {
+        duration: 9,
+        repeat: Infinity,
+        ease: "easeInOut" as const,
+      },
     },
   };
-
-  const fadeInScale = {
-    hidden: { opacity: 0, scale: 0.85 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] as const },
-    },
-  };
-
-  const timeUnits = [
-    { label: "أيام", value: timeLeft.days },
-    { label: "ساعات", value: timeLeft.hours },
-    { label: "دقائق", value: timeLeft.minutes },
-    { label: "ثواني", value: timeLeft.seconds },
-  ];
 
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 py-24 overflow-hidden"
-    >
-      {/* ─── Multi-layer luxury background ─── */}
-      {/* Base gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#FAF8F5] via-[#F7F5F2] to-[#F2EDE6]" />
-
-      {/* Radial gold glow – top center */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[radial-gradient(ellipse_at_center,rgba(200,164,107,0.12)_0%,transparent_70%)] pointer-events-none" />
-
-      {/* Radial gold glow – bottom */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(200,164,107,0.08)_0%,transparent_70%)] pointer-events-none" />
-
-      {/* Subtle grain texture overlay */}
-      <div className="absolute inset-0 bg-grain opacity-60 pointer-events-none" />
-
-      {/* Decorative large circle ring */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[600px] h-[600px] md:w-[750px] md:h-[750px] rounded-full border border-[#C8A46B]/10" />
-      </div>
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[580px] h-[580px] md:w-[730px] md:h-[730px] rounded-full border border-[#C8A46B]/5 border-dashed" />
+    <div className="relative min-h-screen bg-[#FCFAF8] bg-grain flex flex-col items-center justify-center px-6 py-20 overflow-hidden select-none">
+      
+      {/* 1. Thin page border & corner geometric diamond accents */}
+      <div className="absolute inset-4 md:inset-6 border border-[#D8C2A8]/30 pointer-events-none z-30">
+        <div className="absolute -top-1 -left-1 w-2 h-2 rotate-45 border border-[#C9A77B] bg-[#FCFAF8]" />
+        <div className="absolute -top-1 -right-1 w-2 h-2 rotate-45 border border-[#C9A77B] bg-[#FCFAF8]" />
+        <div className="absolute -bottom-1 -left-1 w-2 h-2 rotate-45 border border-[#C9A77B] bg-[#FCFAF8]" />
+        <div className="absolute -bottom-1 -right-1 w-2 h-2 rotate-45 border border-[#C9A77B] bg-[#FCFAF8]" />
       </div>
 
-      {/* ─── Corner flourishes ─── */}
-      <CornerFlourish className="absolute top-4 right-4 md:top-8 md:right-8 opacity-50" />
-      <CornerFlourish className="absolute top-4 left-4 md:top-8 md:left-8 opacity-50 -scale-x-100" />
-      <CornerFlourish className="absolute bottom-4 right-4 md:bottom-8 md:right-8 opacity-50 -scale-y-100" />
-      <CornerFlourish className="absolute bottom-4 left-4 md:bottom-8 md:left-8 opacity-50 -scale-x-100 -scale-y-100" />
+      {/* 2. Concentric large faded circular pattern behind card */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] sm:w-[500px] sm:h-[500px] pointer-events-none z-0 flex items-center justify-center opacity-[0.06]">
+        <div className="absolute w-full h-full rounded-full border border-[#C9A77B]/40" />
+        <div className="absolute w-[84%] h-[84%] rounded-full border border-dashed border-[#C9A77B]/30" />
+        <div className="absolute w-[68%] h-[68%] rounded-full border border-[#C9A77B]/20" />
+        <div className="absolute w-[50%] h-[50%] rounded-full border border-dashed border-[#C9A77B]/15" />
+      </div>
 
-      {/* ─── Main content ─── */}
+      {/* 3. Floating corner botanical decorations */}
       <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="relative z-10 max-w-2xl mx-auto"
+        variants={slowFloatTopRight}
+        animate="animate"
+        className="absolute -top-16 -right-16 w-52 h-52 sm:w-72 sm:h-72 text-[#C9A77B]/60 opacity-[0.08] pointer-events-none z-10"
       >
-        {/* Bismillah */}
-        <motion.div variants={fadeInScale} className="mb-10">
-          <p className="text-2xl md:text-3xl font-calligraphy text-[#9E7D46] font-semibold leading-relaxed">
-            بسم الله الرحمن الرحيم
-          </p>
-        </motion.div>
-
-        {/* Top arabesque divider */}
-        <motion.div variants={itemVariants} className="mb-10">
-          <ArabesqueDivider />
-        </motion.div>
-
-        {/* ─── Names with ornamental frame ─── */}
-        <motion.div variants={itemVariants} className="mb-10">
-          <div className="relative inline-block px-12 py-8">
-            {/* Ornamental double border frame */}
-            <div className="absolute inset-0 border border-[#C8A46B]/25 rounded-sm" />
-            <div className="absolute inset-[6px] border border-[#C8A46B]/15 rounded-sm" />
-
-            {/* Small corner diamonds on the frame */}
-            <svg className="absolute -top-[5px] -right-[5px] w-[10px] h-[10px]" viewBox="0 0 10 10">
-              <rect x="2" y="2" width="6" height="6" transform="rotate(45 5 5)" fill="#C8A46B" opacity="0.5" />
-            </svg>
-            <svg className="absolute -top-[5px] -left-[5px] w-[10px] h-[10px]" viewBox="0 0 10 10">
-              <rect x="2" y="2" width="6" height="6" transform="rotate(45 5 5)" fill="#C8A46B" opacity="0.5" />
-            </svg>
-            <svg className="absolute -bottom-[5px] -right-[5px] w-[10px] h-[10px]" viewBox="0 0 10 10">
-              <rect x="2" y="2" width="6" height="6" transform="rotate(45 5 5)" fill="#C8A46B" opacity="0.5" />
-            </svg>
-            <svg className="absolute -bottom-[5px] -left-[5px] w-[10px] h-[10px]" viewBox="0 0 10 10">
-              <rect x="2" y="2" width="6" height="6" transform="rotate(45 5 5)" fill="#C8A46B" opacity="0.5" />
-            </svg>
-
-            <h1 className={`${namesFont || "font-calligraphy"} text-foreground leading-relaxed`}>
-              <span className="block text-5xl md:text-7xl mb-2">
-                {groomName}
-              </span>
-              <span className={`block text-4xl md:text-5xl text-[#C8A46B] my-3 ${namesFont || "font-calligraphy"}`}>
-                و
-              </span>
-              <span className="block text-5xl md:text-7xl mt-2">
-                {brideName}
-              </span>
-            </h1>
-          </div>
-        </motion.div>
-
-        {/* Middle arabesque divider */}
-        <motion.div variants={itemVariants} className="mb-8">
-          <ArabesqueDivider width={200} />
-        </motion.div>
-
-        {/* Dates */}
-        <motion.div variants={itemVariants} className="mb-6 space-y-3">
-          <p className="text-xl md:text-2xl font-arabic text-foreground/80 font-medium">
-            {gregorianDate}
-          </p>
-          <p className="text-sm md:text-base font-arabic gold-text-static">
-            {hijriDate}
-          </p>
-        </motion.div>
-
-        {/* Bottom arabesque divider */}
-        <motion.div variants={itemVariants} className="mb-10">
-          <ArabesqueDivider width={160} />
-        </motion.div>
-
-        {/* ─── Countdown Timer ─── */}
-        <motion.div variants={itemVariants}>
-          <p className="text-xs md:text-sm font-arabic text-foreground/50 mb-8">
-            المتبقي على مشاركتنا الفرحة
-          </p>
-
-          <div className="grid grid-cols-4 gap-3 md:gap-5 max-w-lg mx-auto">
-            {timeUnits.map((unit, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.7,
-                  delay: 1.2 + index * 0.1,
-                  ease: [0.16, 1, 0.3, 1] as const,
-                }}
-                className="group relative"
-              >
-                <div
-                  className="relative rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center
-                             bg-white/50 backdrop-blur-xl
-                             border border-[#C8A46B]/20
-                             shadow-gold
-                             shadow-inner-gold
-                             transition-all duration-500
-                             hover:shadow-gold-lg hover:border-[#C8A46B]/40"
-                >
-                  {/* Top gold accent bar */}
-                  <div className="absolute top-0 left-2 right-2 h-[1.5px] bg-gradient-to-r from-transparent via-[#C8A46B]/60 to-transparent rounded-t-2xl" />
-
-                  {/* Bottom gold accent bar */}
-                  <div className="absolute bottom-0 left-2 right-2 h-[1px] bg-gradient-to-r from-transparent via-[#C8A46B]/20 to-transparent rounded-b-2xl" />
-
-                  {/* Number */}
-                  <span className="text-3xl md:text-5xl font-bold text-foreground font-arabic tabular-nums leading-none">
-                    {toArabicNums(unit.value)}
-                  </span>
-
-                  {/* Label */}
-                  <span className="text-[10px] md:text-xs text-foreground/45 font-arabic mt-2 tracking-wider">
-                    {unit.label}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        <BotanicalBranch className="w-full h-full" />
       </motion.div>
 
-      {/* Bottom fade-out gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent pointer-events-none" />
-    </section>
+      <motion.div
+        variants={slowFloatBottomLeft}
+        animate="animate"
+        className="absolute -bottom-16 -left-16 w-52 h-52 sm:w-72 sm:h-72 text-[#C9A77B]/60 opacity-[0.08] pointer-events-none z-10"
+      >
+        <BotanicalBranch className="w-full h-full" />
+      </motion.div>
+
+      {/* 4. Top section content */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, delay: 0.2 }}
+        className="text-center space-y-4 mb-10 z-10"
+      >
+        <p
+          className="font-calligraphy text-lg md:text-xl text-[#C9A77B] tracking-wide select-none"
+          style={{ fontFamily: "var(--font-amiri), Amiri, serif" }}
+        >
+          بسم الله الرحمن الرحيم
+        </p>
+        
+        {/* Luxury top divider */}
+        <div className="flex items-center justify-center gap-4 text-[#D8C2A8]/50">
+          <div className="w-20 h-[0.7px] bg-[#D8C2A8]/30" />
+          <span className="text-[#C9A77B] text-[6px] rotate-45 border border-[#C9A77B] p-0.5 bg-[#FCFAF8]" />
+          <div className="w-20 h-[0.7px] bg-[#D8C2A8]/30" />
+        </div>
+      </motion.div>
+
+      {/* 5. Main Card Container (Islamic Arch Frame) */}
+      <motion.div
+        variants={mainFadeUp}
+        initial="hidden"
+        animate="visible"
+        className="relative w-full max-w-[340px] md:max-w-[380px] aspect-[400/550] z-20 mb-10"
+      >
+        {/* Arch Frame vectors forming double gold border */}
+        <svg
+          viewBox="0 0 400 550"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-full absolute inset-0 text-[#C9A77B]/60 pointer-events-none drop-shadow-[0_8px_30px_rgba(201,167,123,0.04)]"
+        >
+          {/* Outer Mihrab Arch */}
+          <path
+            d="M 30,520 L 30,180 C 30,100 100,50 200,30 C 300,50 370,100 370,180 L 370,520 Z"
+            stroke="currentColor"
+            strokeWidth="1.2"
+          />
+          {/* Inner Dashed Mihrab Arch */}
+          <path
+            d="M 38,512 L 38,183 C 38,107 104,60 200,41 C 296,60 362,107 362,183 L 362,512 Z"
+            stroke="currentColor"
+            strokeWidth="0.7"
+            strokeDasharray="3 3"
+          />
+        </svg>
+
+        {/* Embossed inner card backdrop and soft shadow */}
+        <div
+          className="absolute inset-[38px] rounded-b-[4px] bg-[#FCFAF8] pointer-events-none shadow-[inset_0_2px_12px_rgba(122,110,99,0.02)]"
+          style={{
+            clipPath: "polygon(0% 28%, 50% 0%, 100% 28%, 100% 100%, 0% 100%)",
+          }}
+        />
+
+        {/* Inside the frame content */}
+        <div className="absolute inset-[38px] flex flex-col items-center justify-center text-center py-6 space-y-6 select-none z-10">
+          <p className="text-xs md:text-sm font-arabic text-[#666666]/80 tracking-widest">
+            حفل زفاف
+          </p>
+
+          {/* Groom's Name */}
+          <motion.h1
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1.2, ease: "easeOut", delay: 0.4 }}
+            className="text-5xl md:text-6xl font-marhey text-[#222222] font-semibold"
+          >
+            {groomName}
+          </motion.h1>
+
+          {/* Gold divider 1 */}
+          <div className="w-12 h-[0.7px] bg-[#C9A77B]/30" />
+
+          {/* Connecting word */}
+          <span className="text-[#C9A77B] font-marhey text-lg md:text-xl font-medium">
+            و
+          </span>
+
+          {/* Gold divider 2 */}
+          <div className="w-12 h-[0.7px] bg-[#C9A77B]/30" />
+
+          {/* Bride's Name */}
+          <motion.h1
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1.2, ease: "easeOut", delay: 0.6 }}
+            className="text-5xl md:text-6xl font-marhey text-[#222222] font-semibold"
+          >
+            {brideName}
+          </motion.h1>
+        </div>
+      </motion.div>
+
+      {/* 6. Centered Date Section under the card */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, delay: 0.8 }}
+        className="z-10 text-center w-full max-w-sm mt-4 select-none"
+      >
+        <div className="flex items-center justify-center gap-6 md:gap-8">
+          
+          {/* Right Column: Day name + Hijri */}
+          <div className="flex flex-col items-center text-right w-24">
+            <span className="font-arabic text-sm md:text-base text-[#222222] font-semibold">
+              الخميس
+            </span>
+            <span className="font-arabic text-[11px] md:text-xs text-[#666666] mt-0.5">
+              ٣٠ صفر ١٤٤٨ هـ
+            </span>
+          </div>
+
+          {/* Column Separator */}
+          <div className="h-8 w-[0.7px] bg-[#D8C2A8]/45" />
+
+          {/* Center Column: Big Number 13 */}
+          <div className="flex flex-col items-center justify-center">
+            <span className="font-arabic text-5xl md:text-5xl font-bold text-[#C9A77B] leading-none">
+              13
+            </span>
+          </div>
+
+          {/* Column Separator */}
+          <div className="h-8 w-[0.7px] bg-[#D8C2A8]/45" />
+
+          {/* Left Column: Month + Year */}
+          <div className="flex flex-col items-center text-left w-24">
+            <span className="font-arabic text-sm md:text-base text-[#222222] font-semibold">
+              أغسطس
+            </span>
+            <span className="font-arabic text-[11px] md:text-xs text-[#666666] mt-0.5">
+              ٢٠٢٦ م
+            </span>
+          </div>
+
+        </div>
+      </motion.div>
+
+    </div>
   );
 }
