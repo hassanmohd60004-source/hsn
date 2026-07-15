@@ -5,6 +5,9 @@ import { motion } from "framer-motion";
 
 interface InvitationMessageProps {
   text: string;
+  namesFont?: string;
+  namesSize?: string;
+  bodySize?: string;
 }
 
 /** Decorative arabesque corner ornament for the invitation frame */
@@ -150,7 +153,12 @@ function InvitationDivider() {
   );
 }
 
-export default function InvitationMessage({ text }: InvitationMessageProps) {
+export default function InvitationMessage({
+  text,
+  namesFont,
+  namesSize,
+  bodySize,
+}: InvitationMessageProps) {
   const paragraphs = text.split("\n").filter((p) => p.trim() !== "");
 
   const containerVariants = {
@@ -262,7 +270,7 @@ export default function InvitationMessage({ text }: InvitationMessageProps) {
                         variants={itemVariants}
                         className="my-10 flex justify-center items-center"
                       >
-                        <h3 className="text-4.5xl md:text-6.5xl font-messiri font-bold text-[#1A1A1A] leading-relaxed select-none">
+                        <h3 className={`${namesSize || "text-4.5xl md:text-6.5xl"} ${namesFont || "font-messiri"} font-bold text-[#1A1A1A] leading-relaxed select-none`}>
                           {cleanPara}
                         </h3>
                       </motion.div>
@@ -273,7 +281,7 @@ export default function InvitationMessage({ text }: InvitationMessageProps) {
                     <motion.p
                       key={index}
                       variants={itemVariants}
-                      className="text-xl md:text-2xl text-[#1A1A1A] leading-[2.6]"
+                      className={`${bodySize || "text-xl md:text-2xl"} text-[#1A1A1A] leading-[2.6]`}
                       style={{ fontFamily: "var(--font-amiri), Amiri, serif" }}
                     >
                       {para}

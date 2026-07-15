@@ -9,6 +9,7 @@ interface HeroInvitationProps {
   countdownDate: string;
   hijriDate: string;
   gregorianDate: string;
+  namesFont?: string;
 }
 
 /* ──── Ornamental SVG Components ──── */
@@ -193,6 +194,7 @@ export default function HeroInvitation({
   countdownDate,
   hijriDate,
   gregorianDate,
+  namesFont,
 }: HeroInvitationProps) {
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -352,11 +354,11 @@ export default function HeroInvitation({
               <rect x="2" y="2" width="6" height="6" transform="rotate(45 5 5)" fill="#C8A46B" opacity="0.5" />
             </svg>
 
-            <h1 className="font-calligraphy text-foreground leading-relaxed">
+            <h1 className={`${namesFont || "font-calligraphy"} text-foreground leading-relaxed`}>
               <span className="block text-5xl md:text-7xl mb-2">
                 {groomName}
               </span>
-              <span className="block text-4xl md:text-5xl text-[#C8A46B] my-3 font-calligraphy">
+              <span className={`block text-4xl md:text-5xl text-[#C8A46B] my-3 ${namesFont || "font-calligraphy"}`}>
                 و
               </span>
               <span className="block text-5xl md:text-7xl mt-2">
