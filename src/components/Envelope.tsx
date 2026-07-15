@@ -258,51 +258,43 @@ export default function Envelope({ onOpen, brideName, groomName, brideNameEn, gr
                   </div>
                 </div>
 
-                {/* ===== TOP FLAP (opens upward with real 3D, goes behind the card and fades out when open) ===== */}
+                {/* ===== TOP FLAP (opens upward using 2D scaleY flip to avoid Safari 3D positioning bugs) ===== */}
                 <motion.div
-                  initial={{ rotateX: 0, opacity: 1 }}
+                  initial={{ scaleY: 1, opacity: 1 }}
                   animate={{ 
-                    rotateX: flapShouldOpen ? -180 : 0,
+                    scaleY: flapShouldOpen ? -1 : 1,
                     opacity: cardShouldSlide ? 0 : 1,
                   }}
                   transition={{ 
-                    rotateX: { duration: 1.0, ease: [0.45, 0, 0.55, 1] as const },
+                    scaleY: { duration: 1.0, ease: "easeInOut" },
                     opacity: { duration: 0.3, ease: "easeInOut" }
                   }}
                   className="absolute inset-0"
                   style={{
                     transformOrigin: "top center",
-                    transformStyle: "preserve-3d",
                     zIndex: cardShouldSlide ? 10 : 19,
                   }}
                 >
-                  {/* Front face */}
                   <div
-                    className="absolute inset-0"
+                    className={`absolute inset-0 rounded-t-2xl ${
+                      flapShouldOpen 
+                        ? "bg-gradient-to-b from-[#E0DBD3] to-[#D8D3CB]" 
+                        : "bg-gradient-to-b from-[#EDE8E1] to-[#E3DED6]"
+                    }`}
                     style={{
                       clipPath: "polygon(0% 0%, 50% 50%, 100% 0%)",
-                      backfaceVisibility: "hidden",
                     }}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#EDE8E1] to-[#E3DED6] rounded-t-2xl">
+                    {/* Shadow diagonal line inside closed flap */}
+                    {!flapShouldOpen && (
                       <div className="absolute inset-0" style={{
                         background: "linear-gradient(to bottom left, transparent 48.5%, rgba(0,0,0,0.04) 49.5%, rgba(0,0,0,0.04) 50.5%, transparent 51.5%)"
                       }} />
-                    </div>
-                  </div>
-
-                  {/* Back face (visible when flap is open) */}
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      clipPath: "polygon(0% 0%, 50% 50%, 100% 0%)",
-                      backfaceVisibility: "hidden",
-                      transform: "rotateX(180deg)",
-                    }}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#E0DBD3] to-[#D8D3CB] rounded-t-2xl">
+                    )}
+                    {/* Ornate dashed border visible when flipped open */}
+                    {flapShouldOpen && (
                       <div className="absolute inset-6 border border-dashed border-[#C8A46B]/15 rounded" />
-                    </div>
+                    )}
                   </div>
                 </motion.div>
 
