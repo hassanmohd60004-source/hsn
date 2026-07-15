@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 interface HeroInvitationProps {
@@ -39,6 +39,16 @@ function BotanicalBranch({ className }: { className?: string }) {
   );
 }
 
+/** Helper to convert standard digits to Arabic Eastern digits */
+function toArabicNums(val: number | string): string {
+  const str = typeof val === "number" ? val.toString().padStart(2, "0") : val;
+  const arabicDigits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
+  return str
+    .split("")
+    .map((d) => (isNaN(parseInt(d)) ? d : arabicDigits[parseInt(d)]))
+    .join("");
+}
+
 export default function HeroInvitation({
   brideName,
   groomName,
@@ -46,6 +56,39 @@ export default function HeroInvitation({
   hijriDate,
   gregorianDate,
 }: HeroInvitationProps) {
+  // Countdown Timer State
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    const target = new Date(countdownDate).getTime();
+
+    const calculateTime = () => {
+      const now = new Date().getTime();
+      const difference = target - now;
+
+      if (difference <= 0) {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        return;
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      setTimeLeft({ days, hours, minutes, seconds });
+    };
+
+    calculateTime();
+    const interval = setInterval(calculateTime, 1000);
+    return () => clearInterval(interval);
+  }, [countdownDate]);
+
   // Animation configs
   const mainFadeUp = {
     hidden: { opacity: 0, y: 40 },
@@ -258,6 +301,73 @@ export default function HeroInvitation({
             </span>
           </div>
 
+        </div>
+      </motion.div>
+
+      {/* 7. Premium Minimalist Countdown Timer */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, delay: 0.9 }}
+        className="z-10 text-center w-full max-w-[340px] md:max-w-[360px] mt-8 select-none"
+      >
+        {/* Subtle top divider line */}
+        <div className="flex items-center justify-center gap-4 text-[#D8C2A8]/30 mb-4">
+          <div className="w-12 h-[0.7px] bg-[#D8C2A8]/30" />
+          <span className="text-[#C9A77B]/70 text-xs tracking-widest font-arabic font-medium">الوقت المتبقي</span>
+          <div className="w-12 h-[0.7px] bg-[#D8C2A8]/30" />
+        </div>
+
+        {/* Countdown Box */}
+        <div className="flex items-center justify-center gap-4 sm:gap-6 bg-[#FCFAF8] border border-[#D8C2A8]/20 rounded-2xl py-3 px-6 shadow-[0_4px_25px_rgba(122,110,99,0.03)]">
+          {/* Days */}
+          <div className="flex flex-col items-center min-w-[48px]">
+            <span className="font-arabic text-2xl sm:text-3xl font-light text-[#C9A77B] leading-normal">
+              {toArabicNums(timeLeft.days)}
+            </span>
+            <span className="font-arabic text-[10px] sm:text-[11px] text-[#666666]/70 mt-0.5">
+              يوم
+            </span>
+          </div>
+
+          {/* Colon Separator */}
+          <span className="text-[#D8C2A8]/60 text-sm self-center pb-3 select-none">:</span>
+
+          {/* Hours */}
+          <div className="flex flex-col items-center min-w-[48px]">
+            <span className="font-arabic text-2xl sm:text-3xl font-light text-[#C9A77B] leading-normal">
+              {toArabicNums(timeLeft.hours)}
+            </span>
+            <span className="font-arabic text-[10px] sm:text-[11px] text-[#666666]/70 mt-0.5">
+              ساعة
+            </span>
+          </div>
+
+          {/* Colon Separator */}
+          <span className="text-[#D8C2A8]/60 text-sm self-center pb-3 select-none">:</span>
+
+          {/* Minutes */}
+          <div className="flex flex-col items-center min-w-[48px]">
+            <span className="font-arabic text-2xl sm:text-3xl font-light text-[#C9A77B] leading-normal">
+              {toArabicNums(timeLeft.minutes)}
+            </span>
+            <span className="font-arabic text-[10px] sm:text-[11px] text-[#666666]/70 mt-0.5">
+              دقيقة
+            </span>
+          </div>
+
+          {/* Colon Separator */}
+          <span className="text-[#D8C2A8]/60 text-sm self-center pb-3 select-none">:</span>
+
+          {/* Seconds */}
+          <div className="flex flex-col items-center min-w-[48px]">
+            <span className="font-arabic text-2xl sm:text-3xl font-light text-[#C9A77B] leading-normal">
+              {toArabicNums(timeLeft.seconds)}
+            </span>
+            <span className="font-arabic text-[10px] sm:text-[11px] text-[#666666]/70 mt-0.5">
+              ثانية
+            </span>
+          </div>
         </div>
       </motion.div>
 
