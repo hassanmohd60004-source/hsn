@@ -7,307 +7,275 @@ interface InvitationMessageProps {
   text: string;
 }
 
-/** Decorative arabesque corner ornament for the invitation frame */
-function FrameCorner({ className }: { className?: string }) {
+/** Elegant botanical branch vector illustration for corners */
+function BotanicalBranch({ className }: { className?: string }) {
   return (
     <svg
       className={className}
-      width="60"
-      height="60"
-      viewBox="0 0 60 60"
+      viewBox="0 0 120 120"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"
+      stroke="#C9A77B"
+      strokeWidth="1.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
-      {/* Outer curve */}
-      <path
-        d="M5 55 Q5 30, 30 15 Q45 7, 55 5"
-        stroke="url(#fcGrad)"
-        strokeWidth="1.5"
-        fill="none"
-      />
-      {/* Inner curve */}
-      <path
-        d="M10 55 Q10 35, 32 22 Q45 14, 55 12"
-        stroke="url(#fcGrad)"
-        strokeWidth="0.8"
-        fill="none"
-        strokeDasharray="3 2"
-      />
-      {/* Leaf accent */}
-      <path
-        d="M20 42 Q15 32, 28 28 Q35 25, 38 18"
-        stroke="rgba(200,164,107,0.4)"
-        strokeWidth="0.8"
-        fill="none"
-      />
-      {/* Tiny diamond */}
-      <path
-        d="M30 30 L33 26 L36 30 L33 34 Z"
-        fill="rgba(200,164,107,0.2)"
-        stroke="rgba(200,164,107,0.4)"
-        strokeWidth="0.5"
-      />
-      <defs>
-        <linearGradient id="fcGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="rgba(200,164,107,0.15)" />
-          <stop offset="50%" stopColor="rgba(200,164,107,0.6)" />
-          <stop offset="100%" stopColor="rgba(200,164,107,0.15)" />
-        </linearGradient>
-      </defs>
+      {/* Delicate main stem */}
+      <path d="M10 110 C 35 90, 65 55, 105 15" />
+      {/* Detailed hand-drawn leaves */}
+      <path d="M35 85 C 22 75, 25 62, 42 70 C 42 70 38 80 35 85 Z" />
+      <path d="M52 68 C 38 58, 42 45, 58 52 C 58 52 55 62 52 68 Z" />
+      <path d="M70 50 C 58 38, 62 25, 78 32 C 78 32 75 42 70 50 Z" />
+      <path d="M88 32 C 78 20, 82 8, 95 15 C 95 15 92 25 88 32 Z" />
+      {/* Opposite leaves */}
+      <path d="M28 92 C 40 102, 50 92, 40 85 C 40 85 32 88 28 92 Z" />
+      <path d="M45 75 C 58 85, 68 75, 58 68 C 58 68 50 70 45 75 Z" />
+      <path d="M62 57 C 75 67, 85 57, 75 50 C 75 50 68 52 62 57 Z" />
+      <path d="M80 38 C 92 48, 102 38, 92 31 C 92 31 85 33 80 38 Z" />
     </svg>
   );
 }
 
-/** Arabesque divider with central motif */
-function InvitationDivider() {
+/** Small elegant leaf icon for bottom divider */
+function LeafIcon({ className }: { className?: string }) {
   return (
     <svg
-      width="220"
-      height="30"
-      viewBox="0 0 220 30"
+      className={className}
+      viewBox="0 0 24 24"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="mx-auto"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
-      {/* Left branch */}
-      <path
-        d="M0 15 Q25 15, 40 9 Q55 3, 70 8 Q82 12, 92 15"
-        stroke="url(#invDivGrad)"
-        strokeWidth="1"
-        fill="none"
-      />
-      <path
-        d="M0 15 Q25 15, 40 21 Q55 27, 70 22 Q82 18, 92 15"
-        stroke="url(#invDivGrad)"
-        strokeWidth="1"
-        fill="none"
-      />
-      {/* Left leaf */}
-      <path
-        d="M40 9 Q43 3, 47 8"
-        stroke="rgba(200,164,107,0.4)"
-        strokeWidth="0.7"
-        fill="none"
-      />
-      <path
-        d="M40 21 Q43 27, 47 22"
-        stroke="rgba(200,164,107,0.4)"
-        strokeWidth="0.7"
-        fill="none"
-      />
-
-      {/* Center ornament */}
-      <rect
-        x="103"
-        y="8"
-        width="14"
-        height="14"
-        rx="1.5"
-        transform="rotate(45 110 15)"
-        stroke="url(#invDivGrad)"
-        strokeWidth="1"
-        fill="rgba(200,164,107,0.06)"
-      />
-      <circle cx="110" cy="15" r="1.5" fill="rgba(200,164,107,0.5)" />
-
-      {/* Right branch */}
-      <path
-        d="M220 15 Q195 15, 180 9 Q165 3, 150 8 Q138 12, 128 15"
-        stroke="url(#invDivGrad)"
-        strokeWidth="1"
-        fill="none"
-      />
-      <path
-        d="M220 15 Q195 15, 180 21 Q165 27, 150 22 Q138 18, 128 15"
-        stroke="url(#invDivGrad)"
-        strokeWidth="1"
-        fill="none"
-      />
-      {/* Right leaf */}
-      <path
-        d="M180 9 Q177 3, 173 8"
-        stroke="rgba(200,164,107,0.4)"
-        strokeWidth="0.7"
-        fill="none"
-      />
-      <path
-        d="M180 21 Q177 27, 173 22"
-        stroke="rgba(200,164,107,0.4)"
-        strokeWidth="0.7"
-        fill="none"
-      />
-
-      <defs>
-        <linearGradient id="invDivGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="rgba(200,164,107,0.05)" />
-          <stop offset="30%" stopColor="rgba(200,164,107,0.5)" />
-          <stop offset="50%" stopColor="rgba(200,164,107,0.7)" />
-          <stop offset="70%" stopColor="rgba(200,164,107,0.5)" />
-          <stop offset="100%" stopColor="rgba(200,164,107,0.05)" />
-        </linearGradient>
-      </defs>
+      <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1 9a7 7 0 0 1-9 9Z" />
+      <path d="M19 2c-2.26 4.33-5.27 7.14-8 9" />
     </svg>
   );
 }
 
 export default function InvitationMessage({ text }: InvitationMessageProps) {
-  const paragraphs = text.split("\n").filter((p) => p.trim() !== "");
+  const paragraphs = text.split("\n").map((p) => p.trim()).filter(Boolean);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const },
+      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  };
+
+  const leafVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 0.1,
+      transition: { duration: 1.8, delay: 0.6 },
     },
   };
 
   return (
-    <section className="relative py-28 bg-background bg-grain overflow-hidden">
-      {/* Ambient gold glow orbs */}
-      <div className="absolute top-1/4 right-0 w-80 h-80 bg-[radial-gradient(circle,rgba(200,164,107,0.08)_0%,transparent_70%)] pointer-events-none" />
-      <div className="absolute bottom-1/4 left-0 w-80 h-80 bg-[radial-gradient(circle,rgba(200,164,107,0.06)_0%,transparent_70%)] pointer-events-none" />
-
+    <section className="relative py-24 bg-[#FCFAF7] bg-grain overflow-hidden">
       <div className="max-w-3xl mx-auto px-6 relative z-10">
         <motion.div
-          variants={containerVariants}
+          variants={cardVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
+          className="w-full max-w-[700px] mx-auto rounded-[28px] bg-[#FCFAF7] border border-[#D8C2A8]/45 p-3 md:p-4 shadow-[0_12px_40px_rgba(122,110,99,0.06)]"
         >
-          {/* ─── Ornamental double-border invitation frame ─── */}
-          <motion.div variants={itemVariants} className="relative">
-            {/* Outer border */}
-            <div className="absolute inset-0 border-2 border-[#C8A46B]/25 rounded-sm pointer-events-none" />
-            {/* Inner border with offset */}
-            <div className="absolute inset-[10px] border border-[#C8A46B]/15 rounded-sm pointer-events-none" />
-            {/* Inner-inner subtle border */}
-            <div className="absolute inset-[14px] border border-[#C8A46B]/8 rounded-sm pointer-events-none border-dashed" />
+          {/* Inner card container showing the double border */}
+          <div className="border border-[#D8C2A8]/25 rounded-[20px] px-6 py-12 md:px-16 md:py-20 relative overflow-hidden text-center space-y-8">
+            
+            {/* Top-Right Corner Botanical Leaf */}
+            <motion.div
+              variants={leafVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="absolute -top-6 -right-6 w-36 h-36 rotate-90 pointer-events-none"
+            >
+              <BotanicalBranch className="w-full h-full" />
+            </motion.div>
 
-            {/* Corner ornaments */}
-            <FrameCorner className="absolute -top-2 -right-2 opacity-70" />
-            <FrameCorner className="absolute -top-2 -left-2 opacity-70 -scale-x-100" />
-            <FrameCorner className="absolute -bottom-2 -right-2 opacity-70 -scale-y-100" />
-            <FrameCorner className="absolute -bottom-2 -left-2 opacity-70 -scale-x-100 -scale-y-100" />
+            {/* Bottom-Left Corner Botanical Leaf */}
+            <motion.div
+              variants={leafVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="absolute -bottom-6 -left-6 w-36 h-36 -rotate-90 pointer-events-none"
+            >
+              <BotanicalBranch className="w-full h-full" />
+            </motion.div>
 
-            {/* Content area */}
-            <div className="relative px-8 py-14 md:px-16 md:py-20 text-center space-y-6">
-              {/* Top ornamental divider */}
-              <motion.div variants={itemVariants}>
-                <InvitationDivider />
-              </motion.div>
+            {/* Main content body */}
+            <div className="relative z-10 space-y-8">
+              {paragraphs.map((para, index) => {
+                // 1. Detect Quranic verse
+                const isVerse =
+                  para.includes("وَمنْ آيَاتِهِ") ||
+                  para.includes("وَمِنْ آيَاتِهِ") ||
+                  para.includes("آياته") ||
+                  para.includes("صدق الله العظيم");
 
-              {/* Invitation paragraphs */}
-              <div className="space-y-5 mt-6">
-                {paragraphs.map((para, index) => {
-                  // Detect Quranic verse
-                  const isVerse =
-                    para.includes("وَمنْ آيَاتِهِ") ||
-                    para.includes("وَمِنْ آيَاتِهِ") ||
-                    para.includes("آياته") ||
-                    para.includes("صدق الله العظيم");
+                // 2. Detect Bismillah
+                const isBismillah = para.includes("بسم الله الرحمن الرحيم");
 
-                  // Detect main couple names line
-                  const isCoupleNames =
-                    (para.includes("أحمد") || para.includes("احمد")) &&
-                    (para.includes("نورا") || para.includes("نورة"));
+                // 3. Detect main couple names
+                const isCoupleNames =
+                  (para.includes("أحمد") || para.includes("احمد")) &&
+                  (para.includes("نورا") || para.includes("نورة"));
 
-                  // Detect parents' lines
-                  const isParents =
-                    para.includes("نجل") ||
-                    para.includes("كريمة") ||
-                    (para.trim() === "و" && paragraphs[index - 1]?.includes("نجل"));
+                // 4. Detect Parents lines
+                const isGroomParents = para.includes("نجل الدكتور");
+                const isBrideParents = para.includes("كريمة الأستاذ");
+                const isSeparator = para.trim() === "و";
 
-                  if (isVerse) {
-                    return (
-                      <motion.div
-                        key={index}
-                        variants={itemVariants}
-                        className="my-8"
-                      >
-                        {/* Gold highlighted verse frame */}
-                        <div className="relative inline-block max-w-xl mx-auto px-8 py-5">
-                          {/* Verse border frame */}
-                          <div className="absolute inset-0 border border-[#C8A46B]/30 rounded-sm" />
-                          <div className="absolute inset-[3px] border border-[#C8A46B]/15 rounded-sm" />
-                          {/* Subtle gold background wash */}
-                          <div className="absolute inset-0 bg-gradient-to-b from-[#C8A46B]/[0.04] via-[#C8A46B]/[0.06] to-[#C8A46B]/[0.04] rounded-sm" />
-
-                          {/* Top/bottom accent lines */}
-                          <div className="absolute top-0 left-4 right-4 h-[1px] bg-gradient-to-r from-transparent via-[#C8A46B]/40 to-transparent" />
-                          <div className="absolute bottom-0 left-4 right-4 h-[1px] bg-gradient-to-r from-transparent via-[#C8A46B]/40 to-transparent" />
-
-                          <p className="relative text-xl md:text-2xl font-calligraphy text-[#9E7D46] font-semibold leading-[2.2] tracking-wide">
-                            {para}
-                          </p>
-                        </div>
-                      </motion.div>
-                    );
-                  }
-
-                  if (isCoupleNames) {
-                    const cleanPara = para.replace(" & ", " و ").replace("(", "").replace(")", "").trim();
-                    return (
-                      <motion.div
-                        key={index}
-                        variants={itemVariants}
-                        className="my-10 flex justify-center items-center"
-                      >
-                        <h3 className="text-4.5xl md:text-6.5xl font-messiri font-bold text-[#1A1A1A] leading-relaxed select-none">
-                          {cleanPara}
-                        </h3>
-                      </motion.div>
-                    );
-                  }
-
-                  if (isParents) {
-                    const isSeparator = para.trim() === "و";
-                    return (
-                      <motion.p
-                        key={index}
-                        variants={itemVariants}
-                        className={`text-center leading-relaxed ${
-                          isSeparator 
-                            ? "text-lg md:text-xl text-[#C8A46B] my-1" 
-                            : "text-lg md:text-xl text-[#5C5446] font-medium my-2"
-                        }`}
-                        style={{ fontFamily: "var(--font-amiri), Amiri, serif" }}
-                      >
-                        {para}
-                      </motion.p>
-                    );
-                  }
-
+                if (isBismillah) {
                   return (
-                    <motion.p
+                    <p
                       key={index}
-                      variants={itemVariants}
-                      className="text-xl md:text-2xl text-[#1A1A1A] leading-[2.6]"
+                      className="text-lg md:text-xl font-calligraphy text-[#C9A77B] leading-normal"
                       style={{ fontFamily: "var(--font-amiri), Amiri, serif" }}
                     >
                       {para}
-                    </motion.p>
+                    </p>
                   );
-                })}
-              </div>
+                }
 
-              {/* Bottom ornamental divider */}
-              <motion.div variants={itemVariants} className="pt-4">
-                <InvitationDivider />
-              </motion.div>
+                if (isVerse) {
+                  return (
+                    <div key={index} className="max-w-xl mx-auto my-6 px-4">
+                      <p
+                        className="text-base md:text-lg font-calligraphy text-[#7A6E63] leading-[2] italic"
+                        style={{ fontFamily: "var(--font-amiri), Amiri, serif" }}
+                      >
+                        {para}
+                      </p>
+                    </div>
+                  );
+                }
+
+                if (para.includes("نتشرف بدعوتكم")) {
+                  return (
+                    <p
+                      key={index}
+                      className="text-base md:text-lg font-arabic text-[#7A6E63] tracking-wide font-normal"
+                    >
+                      {para}
+                    </p>
+                  );
+                }
+
+                if (isCoupleNames) {
+                  const cleanPara = para.replace(" & ", " و ").replace("(", "").replace(")", "").trim();
+                  return (
+                    <div key={index} className="py-2">
+                      <motion.h1
+                        initial={{ scale: 0.96, opacity: 0 }}
+                        whileInView={{ scale: 1, opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1.4, ease: "easeOut" }}
+                        className="text-5xl md:text-[66px] font-ruqaa font-bold text-[#2E2E2E] leading-tight select-none"
+                      >
+                        {cleanPara}
+                      </motion.h1>
+
+                      {/* Small elegant heart divider */}
+                      <div className="flex items-center justify-center gap-4 mt-6 text-[#D8C2A8]">
+                        <div className="w-16 h-[0.7px] bg-[#D8C2A8]/50" />
+                        <span className="text-[#C9A77B] text-sm">♡</span>
+                        <div className="w-16 h-[0.7px] bg-[#D8C2A8]/50" />
+                      </div>
+                    </div>
+                  );
+                }
+
+                if (isGroomParents) {
+                  const fatherName = "محمد حسن";
+                  const motherName = "والدكتورة سلوى مصطفى";
+                  return (
+                    <div key={index} className="space-y-1">
+                      <p className="text-xs md:text-sm font-arabic text-[#7A6E63] uppercase tracking-wider">
+                        نجل الدكتور
+                      </p>
+                      <h4
+                        className="text-lg md:text-xl font-calligraphy text-[#2E2E2E] font-bold"
+                        style={{ fontFamily: "var(--font-amiri), Amiri, serif" }}
+                      >
+                        {fatherName}
+                      </h4>
+                      <h4
+                        className="text-lg md:text-xl font-calligraphy text-[#2E2E2E] font-bold"
+                        style={{ fontFamily: "var(--font-amiri), Amiri, serif" }}
+                      >
+                        {motherName}
+                      </h4>
+                    </div>
+                  );
+                }
+
+                if (isSeparator) {
+                  return (
+                    <p key={index} className="text-[#C9A77B] font-ruqaa text-lg md:text-xl py-1 select-none">
+                      و
+                    </p>
+                  );
+                }
+
+                if (isBrideParents) {
+                  const fatherName = "فاروق";
+                  const motherName = "والسيدة سلمى";
+                  return (
+                    <div key={index} className="space-y-1">
+                      <p className="text-xs md:text-sm font-arabic text-[#7A6E63] uppercase tracking-wider">
+                        كريمة الأستاذ
+                      </p>
+                      <h4
+                        className="text-lg md:text-xl font-calligraphy text-[#2E2E2E] font-bold"
+                        style={{ fontFamily: "var(--font-amiri), Amiri, serif" }}
+                      >
+                        {fatherName}
+                      </h4>
+                      <h4
+                        className="text-lg md:text-xl font-calligraphy text-[#2E2E2E] font-bold"
+                        style={{ fontFamily: "var(--font-amiri), Amiri, serif" }}
+                      >
+                        {motherName}
+                      </h4>
+
+                      {/* Leaf divider */}
+                      <div className="flex items-center justify-center gap-4 pt-6 text-[#D8C2A8]">
+                        <div className="w-12 h-[0.7px] bg-[#D8C2A8]/50" />
+                        <LeafIcon className="w-4 h-4 text-[#C9A77B] opacity-80" />
+                        <div className="w-12 h-[0.7px] bg-[#D8C2A8]/50" />
+                      </div>
+                    </div>
+                  );
+                }
+
+                if (para.includes("ونسعد بمشاركتكم")) {
+                  return (
+                    <p
+                      key={index}
+                      className="text-lg md:text-xl font-arabic text-[#2E2E2E] font-medium leading-relaxed pt-2"
+                    >
+                      {para}
+                    </p>
+                  );
+                }
+
+                return (
+                  <p
+                    key={index}
+                    className="text-xs md:text-sm font-arabic text-[#7A6E63] tracking-widest leading-normal pt-1"
+                  >
+                    {para}
+                  </p>
+                );
+              })}
             </div>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>
