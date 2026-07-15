@@ -11,6 +11,68 @@ interface EnvelopeProps {
   groomNameEn: string;
 }
 
+/** Synthesize a luxury physical paper whoosh + arpeggiated harp chime sound using Web Audio API */
+const playOpenSound = () => {
+  if (typeof window === "undefined") return;
+  try {
+    const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+    if (!AudioContext) return;
+    const ctx = new AudioContext();
+
+    // 1. Synthesize the Paper Whoosh (using white noise + bandpass filter sweep)
+    const bufferSize = ctx.sampleRate * 1.5; // 1.5 seconds of noise
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = Math.random() * 2 - 1;
+    }
+
+    const noiseNode = ctx.createBufferSource();
+    noiseNode.buffer = buffer;
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = "bandpass";
+    filter.frequency.setValueAtTime(1400, ctx.currentTime);
+    filter.Q.setValueAtTime(1.0, ctx.currentTime);
+    filter.frequency.exponentialRampToValueAtTime(500, ctx.currentTime + 1.2);
+
+    const noiseGain = ctx.createGain();
+    noiseGain.gain.setValueAtTime(0, ctx.currentTime);
+    noiseGain.gain.linearRampToValueAtTime(0.06, ctx.currentTime + 0.1);
+    noiseGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.4);
+
+    noiseNode.connect(filter);
+    filter.connect(noiseGain);
+    noiseGain.connect(ctx.destination);
+
+    // 2. Play a beautiful, soft, luxurious chime chord (warm sine waves)
+    const notes = [261.63, 329.63, 392.00, 523.25]; // C4, E4, G4, C5 (warm major chord)
+    notes.forEach((freq, idx) => {
+      const osc = ctx.createOscillator();
+      const oscGain = ctx.createGain();
+
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+
+      const startTime = ctx.currentTime + idx * 0.08;
+      oscGain.gain.setValueAtTime(0, startTime);
+      oscGain.gain.linearRampToValueAtTime(0.025, startTime + 0.05); // soft pluck
+      oscGain.gain.exponentialRampToValueAtTime(0.0001, startTime + 1.5); // long fade
+
+      osc.connect(oscGain);
+      oscGain.connect(ctx.destination);
+
+      osc.start(startTime);
+      osc.stop(startTime + 1.6);
+    });
+
+    noiseNode.start(ctx.currentTime);
+    noiseNode.stop(ctx.currentTime + 1.5);
+  } catch (error) {
+    console.error("Audio playback error:", error);
+  }
+};
+
 export default function Envelope({ onOpen, brideName, groomName, brideNameEn, groomNameEn }: EnvelopeProps) {
   const [phase, setPhase] = useState<"idle" | "sealBreak" | "flapOpen" | "cardSlide" | "done">("idle");
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -109,6 +171,9 @@ export default function Envelope({ onOpen, brideName, groomName, brideNameEn, gr
 
   const handleOpen = useCallback(() => {
     if (phase !== "idle") return;
+
+    // Play the luxury envelope opening sound
+    playOpenSound();
 
     // Phase 1: Seal breaks
     setPhase("sealBreak");
