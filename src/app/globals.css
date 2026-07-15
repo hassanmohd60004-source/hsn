@@ -1,0 +1,284 @@
+@import "tailwindcss";
+
+:root {
+  --background: #F7F5F2; /* Soft beige */
+  --foreground: #1A1A1A; /* Elegant charcoal black */
+  --gold: #C8A46B;       /* Premium gold */
+  --gold-light: #DFD5C6; /* Soft gold accent */
+  --gold-dark: #9E7D46;  /* Deep gold shadow */
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
+  
+  --font-arabic: var(--font-cairo), 'Cairo', sans-serif;
+  --font-english: var(--font-cormorant), 'Cormorant Garamond', serif;
+  --font-calligraphy: var(--font-amiri), 'Amiri', serif;
+  --font-ruqaa: var(--font-ruqaa), 'Aref Ruqaa', serif;
+  --font-messiri: var(--font-messiri), 'El Messiri', serif;
+}
+
+html, body {
+  background-color: var(--background);
+  color: var(--foreground);
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  direction: rtl; /* Set default direction to RTL */
+}
+
+/* Custom minimal scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gold-light);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+
+/* Background grid or grain texture for premium feel */
+.bg-grain {
+  background-image: radial-gradient(rgba(200, 164, 107, 0.05) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Custom animation utils */
+.blur-backdrop {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ===== LUXURY ENHANCEMENTS ===== */
+
+/* Gold shimmer / shine sweep animation */
+@keyframes gold-shine {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    opacity: 0.4;
+    transform: translateX(-100%) skewX(-15deg);
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0.4;
+    transform: translateX(100%) skewX(-15deg);
+  }
+}
+
+/* Floating / levitation animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(-4px) rotate(-1deg);
+  }
+}
+
+/* Gentle pulse glow for gold elements */
+@keyframes gold-pulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(200, 164, 107, 0.2), 0 0 30px rgba(200, 164, 107, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(200, 164, 107, 0.4), 0 0 50px rgba(200, 164, 107, 0.15);
+  }
+}
+
+/* Ornamental border glow */
+@keyframes border-glow {
+  0%, 100% {
+    border-color: rgba(200, 164, 107, 0.3);
+  }
+  50% {
+    border-color: rgba(200, 164, 107, 0.7);
+  }
+}
+
+/* Gold gradient text utility */
+.gold-text-gradient {
+  background: linear-gradient(
+    135deg,
+    #9E7D46 0%,
+    #C8A46B 25%,
+    #E8D5A8 50%,
+    #C8A46B 75%,
+    #9E7D46 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gold-shine 4s ease-in-out infinite;
+}
+
+/* Static gold gradient text (no animation) */
+.gold-text-static {
+  background: linear-gradient(135deg, #9E7D46 0%, #C8A46B 40%, #E8D5A8 60%, #C8A46B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Floating animation utility classes */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.animate-gold-pulse {
+  animation: gold-pulse 3s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* ===== ELEGANT SEPARATOR / DIVIDER UTILITIES ===== */
+
+/* Ornamental gold divider with diamond center */
+.divider-ornamental {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+}
+
+.divider-ornamental::before,
+.divider-ornamental::after {
+  content: '';
+  flex: 1;
+  max-width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* Double-line ornamental divider */
+.divider-double {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.divider-double::before,
+.divider-double::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  max-width: 80%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-light), var(--gold), var(--gold-light), transparent);
+}
+
+.divider-double::before {
+  top: 0;
+}
+
+.divider-double::after {
+  bottom: 0;
+}
+
+/* ===== RICH SHADOW UTILITIES ===== */
+
+.shadow-gold {
+  box-shadow: 0 4px 20px rgba(200, 164, 107, 0.15),
+              0 1px 4px rgba(200, 164, 107, 0.1);
+}
+
+.shadow-gold-lg {
+  box-shadow: 0 8px 40px rgba(200, 164, 107, 0.2),
+              0 2px 8px rgba(200, 164, 107, 0.12);
+}
+
+.shadow-gold-glow {
+  box-shadow: 0 0 20px rgba(200, 164, 107, 0.2),
+              0 0 40px rgba(200, 164, 107, 0.1),
+              0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-luxury {
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.08),
+              0 10px 20px rgba(0, 0, 0, 0.04),
+              inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.shadow-inner-gold {
+  box-shadow: inset 0 2px 8px rgba(200, 164, 107, 0.12),
+              inset 0 -1px 4px rgba(200, 164, 107, 0.06);
+}
+
+/* ===== ORNAMENTAL BACKGROUND PATTERN ===== */
+
+/* Subtle arabesque / Islamic geometric lattice pattern */
+.bg-arabesque {
+  background-color: var(--background);
+  background-image:
+    /* Diamond lattice */
+    linear-gradient(45deg, rgba(200, 164, 107, 0.03) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(200, 164, 107, 0.03) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(200, 164, 107, 0.03) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(200, 164, 107, 0.03) 75%),
+    /* Subtle dot grid overlay */
+    radial-gradient(circle, rgba(200, 164, 107, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px, 40px 40px, 40px 40px, 40px 40px, 20px 20px;
+  background-position: 0 0, 0 20px, 20px -20px, -20px 0, 0 0;
+}
+
+/* Premium card glass effect */
+.glass-gold {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(200, 164, 107, 0.2);
+}
+
+/* Ornamental frame border */
+.border-ornamental {
+  border: 2px solid var(--gold-light);
+  outline: 1px solid rgba(200, 164, 107, 0.15);
+  outline-offset: 6px;
+}
+
+/* Selection color */
+::selection {
+  background-color: rgba(200, 164, 107, 0.25);
+  color: var(--foreground);
+}
