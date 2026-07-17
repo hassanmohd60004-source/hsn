@@ -56,6 +56,14 @@ export default function HeroInvitation({
   hijriDate,
   gregorianDate,
 }: HeroInvitationProps) {
+  // Dynamic parsing of gregorianDate prop (e.g. "الأربعاء، ١٢ أغسطس ٢٠٢٦ م")
+  const dateClean = (gregorianDate || "").replace("،", "");
+  const dateParts = dateClean.split(" ");
+  const dayName = dateParts[0] || "الخميس";
+  const dayNumber = dateParts[1] || "13";
+  const monthName = dateParts[2] || "أغسطس";
+  const yearName = (dateParts[3] || "٢٠٢٦") + " " + (dateParts[4] || "م");
+
   // Countdown Timer State
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -271,20 +279,20 @@ export default function HeroInvitation({
           {/* Right Column: Day name + Hijri */}
           <div className="flex flex-col items-center text-right w-24">
             <span className="font-arabic text-sm md:text-base text-[#222222] font-semibold">
-              الخميس
+              {dayName}
             </span>
             <span className="font-arabic text-[11px] md:text-xs text-[#666666] mt-0.5">
-              ٣٠ صفر ١٤٤٨ هـ
+              {hijriDate}
             </span>
           </div>
 
           {/* Column Separator */}
           <div className="h-8 w-[0.7px] bg-[#D8C2A8]/45" />
 
-          {/* Center Column: Big Number 13 */}
+          {/* Center Column: Big Number */}
           <div className="flex flex-col items-center justify-center">
             <span className="font-arabic text-5xl md:text-5xl font-bold text-[#C9A77B] leading-none">
-              13
+              {dayNumber}
             </span>
           </div>
 
@@ -294,10 +302,10 @@ export default function HeroInvitation({
           {/* Left Column: Month + Year */}
           <div className="flex flex-col items-center text-left w-24">
             <span className="font-arabic text-sm md:text-base text-[#222222] font-semibold">
-              أغسطس
+              {monthName}
             </span>
             <span className="font-arabic text-[11px] md:text-xs text-[#666666] mt-0.5">
-              ٢٠٢٦ م
+              {yearName}
             </span>
           </div>
 

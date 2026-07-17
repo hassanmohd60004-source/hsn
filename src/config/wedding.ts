@@ -49,9 +49,9 @@ export const weddingConfig: WeddingConfig = {
 
  ونسعد بمشاركتكم أجمل لحظات العمر.
  حضوركم شرف لنا ويزيد بهجتنا.`,
-  countdownDate: "2026-08-13T19:00:00", 
-  hijriDate: "٣٠ صفر ١٤٤٨ هـ",
-  gregorianDate: "الخميس، ١٣ أغسطس ٢٠٢٦ م",
+  countdownDate: "2026-08-12T19:00:00", 
+  hijriDate: "٢٩ صفر ١٤٤٨ هـ",
+  gregorianDate: "الأربعاء، ١٢ أغسطس ٢٠٢٦ م",
   hallName: "منتجع دايموند بلو (Diamond Blue Resort)",
   address: "شارع سعد زغلول، الزهور، بورسعيد، مصر",
   googleMapsLink: "https://maps.app.goo.gl/YE9rcRiGpAZqELbe9",
