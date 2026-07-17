@@ -128,7 +128,7 @@ export default function RSVP() {
       date: new Date().toLocaleString("ar-EG"),
     };
 
-    const rsvpApiUrl = process.env.NEXT_PUBLIC_RSVP_API_URL;
+    const rsvpApiUrl = process.env.NEXT_PUBLIC_RSVP_API_URL || "https://script.google.com/macros/s/AKfycbyzEmWaJFErTkYYY3ykcc772VGv1d0JC7PIKlB3yEypEdHW1XhJyph4y8S9ejqAMPc7wQ/exec";
     if (rsvpApiUrl) {
       try {
         await fetch(rsvpApiUrl, {
