@@ -197,7 +197,6 @@ export default function InvitationMessage({ text }: InvitationMessageProps) {
 
                 if (isGroomParents) {
                   const fatherName = "محمد حسن";
-                  const motherName = "والدكتورة سلوى مصطفى";
                   return (
                     <div key={index} className="space-y-1">
                       <p className="text-xs md:text-sm font-arabic text-[#7A6E63] uppercase tracking-wider">
@@ -208,12 +207,6 @@ export default function InvitationMessage({ text }: InvitationMessageProps) {
                         style={{ fontFamily: "var(--font-amiri), Amiri, serif" }}
                       >
                         {fatherName}
-                      </h4>
-                      <h4
-                        className="text-lg md:text-xl font-calligraphy text-[#2E2E2E] font-bold"
-                        style={{ fontFamily: "var(--font-amiri), Amiri, serif" }}
-                      >
-                        {motherName}
                       </h4>
                     </div>
                   );
@@ -228,8 +221,7 @@ export default function InvitationMessage({ text }: InvitationMessageProps) {
                 }
 
                 if (isBrideParents) {
-                  const fatherName = "فاروق";
-                  const motherName = "والسيدة سلمى";
+                  const fatherName = "محمد فاروق";
                   return (
                     <div key={index} className="space-y-1">
                       <p className="text-xs md:text-sm font-arabic text-[#7A6E63] uppercase tracking-wider">
@@ -240,12 +232,6 @@ export default function InvitationMessage({ text }: InvitationMessageProps) {
                         style={{ fontFamily: "var(--font-amiri), Amiri, serif" }}
                       >
                         {fatherName}
-                      </h4>
-                      <h4
-                        className="text-lg md:text-xl font-calligraphy text-[#2E2E2E] font-bold"
-                        style={{ fontFamily: "var(--font-amiri), Amiri, serif" }}
-                      >
-                        {motherName}
                       </h4>
 
                       {/* Leaf divider */}
