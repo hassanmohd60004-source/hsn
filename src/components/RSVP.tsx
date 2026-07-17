@@ -117,9 +117,14 @@ export default function RSVP() {
       return;
     }
 
-    // Validate Egyptian mobile numbers
-    const cleanPhone = phone.trim().replace(/[\s\-\+]/g, "");
-    const isEgyptianPhone = /^(20)?1[0125][0-9]{8}$/.test(cleanPhone);
+    // Validate Egyptian mobile numbers (supports both English and Arabic numeral inputs)
+    const convertArabicDigits = (str: string) => {
+      const arabicDigits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
+      return str.replace(/[٠-٩]/g, (w) => arabicDigits.indexOf(w).toString());
+    };
+    const normalizedPhone = convertArabicDigits(phone.trim());
+    const cleanPhone = normalizedPhone.replace(/[\s\-\+]/g, "");
+    const isEgyptianPhone = /^(0|20)?1[0125][0-9]{8}$/.test(cleanPhone);
     if (!isEgyptianPhone) {
       alert("يرجى إدخال رقم هاتف مصري صحيح (مثال: 01xxxxxxxxx)");
       return;
@@ -130,7 +135,7 @@ export default function RSVP() {
     const rsvpData = {
       name,
       guests: selectedStatus === "attending" ? guests : "0",
-      phone,
+      phone: cleanPhone,
       message,
       status: selectedStatus,
       date: new Date().toLocaleString("ar-EG"),
