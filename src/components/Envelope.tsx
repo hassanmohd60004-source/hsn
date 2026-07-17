@@ -212,7 +212,7 @@ export default function Envelope({ onOpen, brideName, groomName, brideNameEn, gr
                 {/* ===== INVITATION CARD (starts hidden INSIDE, slides UP out of envelope) ===== */}
                 <motion.div
                   initial={{ y: "0%" }}
-                  animate={cardShouldSlide ? { y: "-58%" } : { y: "0%" }}
+                  animate={cardShouldSlide ? { y: "-88%" } : { y: "0%" }}
                   transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] as const }}
                   className="absolute z-[13]"
                   style={{
