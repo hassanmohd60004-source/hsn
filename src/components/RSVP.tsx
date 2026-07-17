@@ -63,6 +63,7 @@ export default function RSVP() {
   const [status, setStatus] = useState<"attending" | "not_attending" | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [localRSVP, setLocalRSVP] = useState<{ name: string; status: string } | null>(null);
+  const [isSending, setIsSending] = useState(false);
 
   // Check if RSVP is already stored locally
   useEffect(() => {
@@ -106,7 +107,7 @@ export default function RSVP() {
     frame();
   };
 
-  const handleSubmit = (selectedStatus: "attending" | "not_attending") => {
+  const handleSubmit = async (selectedStatus: "attending" | "not_attending") => {
     if (!name.trim()) {
       alert("يرجى إدخال الاسم الكريم");
       return;
@@ -116,19 +117,38 @@ export default function RSVP() {
       return;
     }
 
+    setIsSending(true);
+
     const rsvpData = {
       name,
       guests: selectedStatus === "attending" ? guests : "0",
       phone,
       message,
       status: selectedStatus,
-      date: new Date().toISOString(),
+      date: new Date().toLocaleString("ar-EG"),
     };
+
+    const rsvpApiUrl = process.env.NEXT_PUBLIC_RSVP_API_URL;
+    if (rsvpApiUrl) {
+      try {
+        await fetch(rsvpApiUrl, {
+          method: "POST",
+          mode: "no-cors", // Bypasses CORS redirect block on Google Apps Script
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(rsvpData),
+        });
+      } catch (e) {
+        console.error("Error sending RSVP:", e);
+      }
+    }
 
     localStorage.setItem("wedding_rsvp", JSON.stringify(rsvpData));
     setStatus(selectedStatus);
     setLocalRSVP(rsvpData);
     setIsSubmitted(true);
+    setIsSending(false);
 
     if (selectedStatus === "attending") {
       triggerConfetti();
@@ -410,22 +430,24 @@ export default function RSVP() {
                     whileHover={{ scale: 1.02, y: -2 }}
                     whileTap={{ scale: 0.97 }}
                     onClick={() => handleSubmit("attending")}
-                    className="relative flex items-center justify-center gap-2.5 px-6 py-4.5 bg-gradient-to-r from-[#C8A46B] to-[#9E7D46] text-white rounded-2xl font-arabic text-sm font-semibold shadow-lg shadow-[#C8A46B]/25 hover:shadow-xl hover:shadow-[#C8A46B]/35 transition-all duration-300 cursor-pointer overflow-hidden group/btn"
+                    disabled={isSending}
+                    className="relative flex items-center justify-center gap-2.5 px-6 py-4.5 bg-gradient-to-r from-[#C8A46B] to-[#9E7D46] text-white rounded-2xl font-arabic text-sm font-semibold shadow-lg shadow-[#C8A46B]/25 hover:shadow-xl hover:shadow-[#C8A46B]/35 transition-all duration-300 cursor-pointer overflow-hidden group/btn disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {/* Shimmer */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700" />
                     <Check className="w-4 h-4 relative z-10" />
-                    <span className="relative z-10">سأحضر</span>
+                    <span className="relative z-10">{isSending ? "جاري الإرسال..." : "سأحضر"}</span>
                   </motion.button>
 
                   <motion.button
                     whileHover={{ scale: 1.02, y: -2 }}
                     whileTap={{ scale: 0.97 }}
                     onClick={() => handleSubmit("not_attending")}
-                    className="flex items-center justify-center gap-2.5 px-6 py-4.5 bg-white/80 backdrop-blur-sm hover:bg-red-50/80 text-red-400 border border-red-200/60 hover:border-red-300 rounded-2xl font-arabic text-sm font-semibold transition-all duration-300 cursor-pointer shadow-sm hover:shadow-md"
+                    disabled={isSending}
+                    className="flex items-center justify-center gap-2.5 px-6 py-4.5 bg-white/80 backdrop-blur-sm hover:bg-red-50/80 text-red-400 border border-red-200/60 hover:border-red-300 rounded-2xl font-arabic text-sm font-semibold transition-all duration-300 cursor-pointer shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <X className="w-4 h-4" />
-                    <span>لن أتمكن</span>
+                    <span>{isSending ? "جاري الإرسال..." : "لن أتمكن"}</span>
                   </motion.button>
                 </div>
               </div>
