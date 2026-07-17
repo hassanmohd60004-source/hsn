@@ -117,6 +117,14 @@ export default function RSVP() {
       return;
     }
 
+    // Validate Egyptian mobile numbers
+    const cleanPhone = phone.trim().replace(/[\s\-\+]/g, "");
+    const isEgyptianPhone = /^(20)?1[0125][0-9]{8}$/.test(cleanPhone);
+    if (!isEgyptianPhone) {
+      alert("يرجى إدخال رقم هاتف مصري صحيح (مثال: 01xxxxxxxxx)");
+      return;
+    }
+
     setIsSending(true);
 
     const rsvpData = {
@@ -339,6 +347,11 @@ export default function RSVP() {
                 <FrameCorner className="absolute top-3 left-3" />
                 <FrameCorner className="absolute top-3 right-3 -scale-x-100" />
 
+                {/* Mandatory Notice Banner */}
+                <div className="bg-[#C8A46B]/5 border border-[#C8A46B]/15 rounded-2xl p-4 text-center text-xs md:text-sm text-[#9E7D46] font-arabic leading-relaxed">
+                  ⚠️ يرجى تأكيد حضوركم وملء البيانات المطلوبة بدقة لنتمكن من حصر أعداد الحضور وتنسيق التجهيزات الخاصة بكم.
+                </div>
+
                 {/* Form Fields */}
                 <div className="space-y-6">
                   {/* Name */}
@@ -399,7 +412,7 @@ export default function RSVP() {
                       type="tel"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      placeholder="05xxxxxxxx"
+                      placeholder="01xxxxxxxxx"
                       className={`${inputBaseClass} text-left`}
                       dir="ltr"
                       required
