@@ -10,7 +10,6 @@ import EventDetails from "@/components/EventDetails";
 import Timeline from "@/components/Timeline";
 import GoogleMaps from "@/components/GoogleMaps";
 import RSVP from "@/components/RSVP";
-import ShareSection from "@/components/ShareSection";
 import BottomNav from "@/components/BottomNav";
 
 export default function Home() {
@@ -72,13 +71,6 @@ export default function Home() {
 
             {/* RSVP Form */}
             <RSVP />
-
-            {/* Share Invitation */}
-            <ShareSection
-              shareMessage={weddingConfig.shareMessage}
-              brideName={weddingConfig.brideName}
-              groomName={weddingConfig.groomName}
-            />
 
             {/* Mobile Bottom Floating Nav Bar */}
             <BottomNav />
