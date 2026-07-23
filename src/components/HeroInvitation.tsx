@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { FloralCorner, Peony } from "@/components/decorations/FloralSVGs";
+import { useParallax } from "@/hooks/useParallax";
 
 interface HeroInvitationProps {
   brideName: string;
@@ -56,6 +58,8 @@ export default function HeroInvitation({
   hijriDate,
   gregorianDate,
 }: HeroInvitationProps) {
+  const parallax = useParallax();
+
   // Dynamic parsing of gregorianDate prop (e.g. "الأربعاء، ١٢ أغسطس ٢٠٢٦ م")
   const dateClean = (gregorianDate || "").replace("،", "");
   const dateParts = dateClean.split(" ");
@@ -156,17 +160,17 @@ export default function HeroInvitation({
       <motion.div
         variants={slowFloatTopRight}
         animate="animate"
-        className="absolute -top-16 -right-16 w-52 h-52 sm:w-72 sm:h-72 text-[#C9A77B]/60 opacity-[0.08] pointer-events-none z-10"
+        className="absolute -top-16 -right-16 w-52 h-52 sm:w-72 sm:h-72 text-[#C9A77B]/60 opacity-40 pointer-events-none z-10"
       >
-        <BotanicalBranch className="w-full h-full" />
+        <FloralCorner className="w-full h-full" style={{ transform: `translate(${parallax.x * 0.5}px, ${parallax.y * 0.5}px)` }} />
       </motion.div>
 
       <motion.div
         variants={slowFloatBottomLeft}
         animate="animate"
-        className="absolute -bottom-16 -left-16 w-52 h-52 sm:w-72 sm:h-72 text-[#C9A77B]/60 opacity-[0.08] pointer-events-none z-10"
+        className="absolute -bottom-16 -left-16 w-52 h-52 sm:w-72 sm:h-72 text-[#C9A77B]/60 opacity-40 pointer-events-none z-10"
       >
-        <BotanicalBranch className="w-full h-full" />
+        <FloralCorner className="w-full h-full -scale-x-100 -scale-y-100" style={{ transform: `translate(${-parallax.x * 0.5}px, ${-parallax.y * 0.5}px)` }} />
       </motion.div>
 
       {/* 4. Top section content */}
@@ -198,6 +202,10 @@ export default function HeroInvitation({
         animate="visible"
         className="relative w-full max-w-[340px] md:max-w-[380px] aspect-[400/550] z-20 mb-10"
       >
+        {/* Peony background accents */}
+        <Peony className="absolute -left-8 top-1/3 w-48 h-48 opacity-30 pointer-events-none" style={{ transform: `translate(${parallax.x * 0.3}px, ${parallax.y * 0.3}px)` }} />
+        <Peony className="absolute -right-8 bottom-1/4 w-44 h-44 opacity-25 -scale-x-100 pointer-events-none" style={{ transform: `translate(${-parallax.x * 0.3}px, ${-parallax.y * 0.3}px)` }} />
+
         {/* Arch Frame vectors forming double gold border */}
         <svg
           viewBox="0 0 400 550"
@@ -327,7 +335,12 @@ export default function HeroInvitation({
         </div>
 
         {/* Countdown Box */}
-        <div className="flex items-center justify-center gap-4 sm:gap-6 bg-[#FCFAF8] border border-[#D8C2A8]/20 rounded-2xl py-3 px-6 shadow-[0_4px_25px_rgba(122,110,99,0.03)]">
+        <div className="relative flex items-center justify-center gap-4 sm:gap-6 bg-[#FCFAF8] border border-[#D8C2A8]/20 rounded-2xl py-3 px-6 shadow-[0_4px_25px_rgba(122,110,99,0.03)]">
+          {/* Sparkle accents */}
+          <div className="absolute -top-2 -right-3 w-1.5 h-1.5 rounded-full bg-[#C8A46B] sparkle" style={{ animationDelay: '-1s', animationDuration: '3s' }} />
+          <div className="absolute -bottom-1 -left-2 w-1 h-1 rounded-full bg-[#D4B77A] sparkle" style={{ animationDelay: '-2.5s', animationDuration: '4s' }} />
+          <div className="absolute top-1 right-1/4 w-1 h-1 rounded-full bg-[#DFD5C6] sparkle" style={{ animationDelay: '-0.5s', animationDuration: '3.5s' }} />
+
           {/* Days */}
           <div className="flex flex-col items-center min-w-[48px]">
             <span className="font-arabic text-2xl sm:text-3xl font-light text-[#C9A77B] leading-normal">

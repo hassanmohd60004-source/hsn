@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { MapPin, Navigation } from "lucide-react";
 import { playPaperRustle } from "@/utils/audio";
+import { FloralCorner, GoldFloralLine, EucalyptusLeaf } from "@/components/decorations/FloralSVGs";
 
 interface GoogleMapsProps {
   embedUrl?: string;
@@ -35,30 +36,7 @@ const OrnamentalDivider = () => (
   </svg>
 );
 
-/* ───────── Decorative Frame Corner ───────── */
-const FrameCorner = ({ className }: { className?: string }) => (
-  <svg
-    viewBox="0 0 40 40"
-    className={`w-8 h-8 text-[#C8A46B] ${className}`}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M2 38 L2 12 Q2 2 12 2 L38 2"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      opacity="0.6"
-    />
-    <path
-      d="M6 38 L6 16 Q6 6 16 6 L38 6"
-      stroke="currentColor"
-      strokeWidth="0.8"
-      opacity="0.3"
-    />
-    <circle cx="2" cy="38" r="2" fill="currentColor" opacity="0.5" />
-    <circle cx="38" cy="2" r="2" fill="currentColor" opacity="0.5" />
-  </svg>
-);
+
 
 export default function GoogleMaps({ embedUrl, mapsLink, hallName }: GoogleMapsProps) {
   return (
@@ -66,6 +44,8 @@ export default function GoogleMaps({ embedUrl, mapsLink, hallName }: GoogleMapsP
       {/* Background decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#C8A46B]/[0.03] rounded-full blur-3xl" />
+        <EucalyptusLeaf className="absolute top-4 right-2 w-16 h-40 opacity-40 pointer-events-none" />
+        <EucalyptusLeaf className="absolute bottom-4 left-2 w-16 h-40 opacity-40 -scale-x-100 pointer-events-none" />
       </div>
 
       <div className="max-w-4xl mx-auto space-y-14 relative z-10">
@@ -84,6 +64,7 @@ export default function GoogleMaps({ embedUrl, mapsLink, hallName }: GoogleMapsP
             موقع الحفل
           </h2>
           <OrnamentalDivider />
+          <GoldFloralLine className="w-56 md:w-72 h-8 mx-auto opacity-50" />
         </motion.div>
 
         {/* ─── Map Container ─── */}
@@ -105,10 +86,10 @@ export default function GoogleMaps({ embedUrl, mapsLink, hallName }: GoogleMapsP
             <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-[#C8A46B]/40 to-transparent" />
 
             {/* Corner decorations */}
-            <FrameCorner className="absolute top-3 left-3" />
-            <FrameCorner className="absolute top-3 right-3 -scale-x-100" />
-            <FrameCorner className="absolute bottom-3 left-3 -scale-y-100" />
-            <FrameCorner className="absolute bottom-3 right-3 scale-x-[-1] scale-y-[-1]" />
+            <FloralCorner className="absolute -top-3 -right-3 w-28 h-28 opacity-60 pointer-events-none" />
+            <FloralCorner className="absolute -top-3 -left-3 w-28 h-28 -scale-x-100 opacity-60 pointer-events-none" />
+            <FloralCorner className="absolute -bottom-3 -right-3 w-28 h-28 -scale-y-100 opacity-60 pointer-events-none" />
+            <FloralCorner className="absolute -bottom-3 -left-3 w-28 h-28 scale-x-[-1] scale-y-[-1] opacity-60 pointer-events-none" />
 
             {/* Embedded Map */}
             {embedUrl ? (

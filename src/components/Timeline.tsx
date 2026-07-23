@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { TimelineEvent } from "@/config/wedding";
 import { playPaperRustle } from "@/utils/audio";
+import { WhiteRose, GoldFloralLine, Peony } from "@/components/decorations/FloralSVGs";
 
 interface TimelineProps {
   events: TimelineEvent[];
@@ -33,21 +34,7 @@ const OrnamentalDivider = () => (
   </svg>
 );
 
-/* ───────── Decorative end cap for the timeline ───────── */
-const TimelineEndCap = () => (
-  <svg
-    viewBox="0 0 24 24"
-    className="w-5 h-5"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M12 2 L14 8 L20 8 L15 12 L17 18 L12 14 L7 18 L9 12 L4 8 L10 8 Z"
-      fill="#C8A46B"
-      opacity="0.6"
-    />
-  </svg>
-);
+
 
 export default function Timeline({ events }: TimelineProps) {
   const containerVariants = {
@@ -96,6 +83,7 @@ export default function Timeline({ events }: TimelineProps) {
             برنامج الحفل
           </h2>
           <OrnamentalDivider />
+          <GoldFloralLine className="w-56 md:w-72 h-8 mx-auto opacity-50" />
         </motion.div>
 
         {/* ─── Timeline ─── */}
@@ -118,14 +106,11 @@ export default function Timeline({ events }: TimelineProps) {
               variants={itemVariants}
               className="relative pr-10 md:pr-14 group"
             >
-              {/* ── Gold circle node with glow ── */}
-              <div className="absolute top-5 right-[-9px] md:right-[-9px] z-10">
-                {/* Glow ring */}
-                <div className="absolute -inset-2 bg-[#C8A46B]/15 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
-                {/* Outer ring */}
-                <div className="relative w-[18px] h-[18px] rounded-full border-2 border-[#C8A46B] bg-white flex items-center justify-center group-hover:border-[#9E7D46] transition-colors duration-300 shadow-sm group-hover:shadow-md group-hover:shadow-[#C8A46B]/30">
-                  {/* Inner dot */}
-                  <div className="w-2 h-2 rounded-full bg-[#C8A46B] group-hover:bg-[#9E7D46] group-hover:scale-125 transition-all duration-300" />
+              {/* ── Floral rose node ── */}
+              <div className="absolute top-4 right-[-16px] z-10">
+                <div className="absolute -inset-1 bg-[#C8A46B]/25 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+                <div className="relative w-8 h-8 rounded-full bg-white border border-[#C8A46B] flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
+                  <WhiteRose className="w-7 h-7" />
                 </div>
               </div>
 
@@ -158,7 +143,7 @@ export default function Timeline({ events }: TimelineProps) {
 
           {/* ── Timeline end cap ── */}
           <div className="absolute bottom-[-8px] right-[-11px] md:right-[-11px]">
-            <TimelineEndCap />
+            <Peony className="w-8 h-8 mx-auto opacity-60" />
           </div>
         </motion.div>
       </div>

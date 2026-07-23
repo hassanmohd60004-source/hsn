@@ -3,38 +3,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { playPaperRustle } from "@/utils/audio";
+import { FloralCorner, Peony } from "@/components/decorations/FloralSVGs";
 
 interface InvitationMessageProps {
   text: string;
 }
 
-/** Elegant botanical branch vector illustration for corners */
-function BotanicalBranch({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 120 120"
-      fill="none"
-      stroke="#C9A77B"
-      strokeWidth="1.2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      {/* Delicate main stem */}
-      <path d="M10 110 C 35 90, 65 55, 105 15" />
-      {/* Detailed hand-drawn leaves */}
-      <path d="M35 85 C 22 75, 25 62, 42 70 C 42 70 38 80 35 85 Z" />
-      <path d="M52 68 C 38 58, 42 45, 58 52 C 58 52 55 62 52 68 Z" />
-      <path d="M70 50 C 58 38, 62 25, 78 32 C 78 32 75 42 70 50 Z" />
-      <path d="M88 32 C 78 20, 82 8, 95 15 C 95 15 92 25 88 32 Z" />
-      {/* Opposite leaves */}
-      <path d="M28 92 C 40 102, 50 92, 40 85 C 40 85 32 88 28 92 Z" />
-      <path d="M45 75 C 58 85, 68 75, 58 68 C 58 68 50 70 45 75 Z" />
-      <path d="M62 57 C 75 67, 85 57, 75 50 C 75 50 68 52 62 57 Z" />
-      <path d="M80 38 C 92 48, 102 38, 92 31 C 92 31 85 33 80 38 Z" />
-    </svg>
-  );
-}
+
 
 /** Small elegant leaf icon for bottom divider */
 function LeafIcon({ className }: { className?: string }) {
@@ -90,27 +65,14 @@ export default function InvitationMessage({ text }: InvitationMessageProps) {
           {/* Inner card container showing the double border */}
           <div className="border border-[#D8C2A8]/25 rounded-[20px] px-6 py-12 md:px-16 md:py-20 relative overflow-hidden text-center space-y-8">
             
-            {/* Top-Right Corner Botanical Leaf */}
-            <motion.div
-              variants={leafVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="absolute -top-6 -right-6 w-36 h-36 rotate-90 pointer-events-none"
-            >
-              <BotanicalBranch className="w-full h-full" />
-            </motion.div>
+            {/* Top-Right Corner Floral */}
+            <FloralCorner className="absolute -top-3 -right-3 w-32 h-32 md:w-40 md:h-40 opacity-50 pointer-events-none" />
 
-            {/* Bottom-Left Corner Botanical Leaf */}
-            <motion.div
-              variants={leafVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="absolute -bottom-6 -left-6 w-36 h-36 -rotate-90 pointer-events-none"
-            >
-              <BotanicalBranch className="w-full h-full" />
-            </motion.div>
+            {/* Bottom-Left Corner Floral */}
+            <FloralCorner className="absolute -bottom-3 -left-3 w-32 h-32 md:w-40 md:h-40 scale-x-[-1] scale-y-[-1] opacity-50 pointer-events-none" />
+
+            {/* Peony Watermark */}
+            <Peony className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 opacity-[0.12] pointer-events-none" />
 
             {/* Main content body */}
             <div className="relative z-10 space-y-8">
