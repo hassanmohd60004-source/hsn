@@ -2,8 +2,6 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { WhiteRose, BabyBreath, ChampagneRose } from "@/components/decorations/FloralSVGs";
-import SparkleField from "@/components/decorations/SparkleField";
 
 interface EnvelopeProps {
   onOpen: () => void;
@@ -185,17 +183,6 @@ export default function Envelope({ onOpen, brideName, groomName, brideNameEn, gr
         className="absolute inset-0 bg-[#F7F5F2]"
       />
 
-      <SparkleField density="medium" />
-
-      {/* ─── Floral Decorations ─── */}
-      <WhiteRose className="absolute top-4 left-1/2 -translate-x-1/2 w-28 h-28 opacity-50 pointer-events-none z-[1]" />
-      <BabyBreath className="absolute bottom-6 left-1/2 -translate-x-1/2 w-40 h-28 opacity-40 pointer-events-none z-[1]" />
-      <WhiteRose className="absolute top-1/4 left-3 w-20 h-20 opacity-35 rotate-45 pointer-events-none z-[1]" />
-      <ChampagneRose className="absolute top-1/3 right-3 w-20 h-20 opacity-35 -rotate-12 pointer-events-none z-[1]" />
-      <ChampagneRose className="absolute bottom-1/4 left-6 w-16 h-16 opacity-30 rotate-12 pointer-events-none z-[1]" />
-      <WhiteRose className="absolute bottom-1/3 right-6 w-16 h-16 opacity-30 -rotate-45 pointer-events-none z-[1]" />
-
-
       {/* Gold particles */}
       <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-20" />
 
@@ -212,11 +199,6 @@ export default function Envelope({ onOpen, brideName, groomName, brideNameEn, gr
           <AnimatePresence>
             {phase !== "done" && (
               <>
-                {phase === "idle" && (
-                  <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none z-[11]">
-                    <div className="absolute top-0 w-[60%] h-full bg-gradient-to-r from-transparent via-[#C8A46B]/15 to-transparent animate-gold-sweep skew-x-[-15deg]" />
-                  </div>
-                )}
                 {/* ===== ENVELOPE BACK ===== */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-[#F0ECE6] to-[#E8E3DC] shadow-2xl border border-[#E0DBD4] overflow-hidden">
                   <div className="absolute inset-2 rounded-xl border border-[#D5CFC5]/40 bg-[#FAF8F5]/40" />
@@ -359,17 +341,6 @@ export default function Envelope({ onOpen, brideName, groomName, brideNameEn, gr
                     )}
                   </div>
                 </motion.div>
-
-                {/* ===== GOLD HALO ===== */}
-                <div 
-                  className="absolute w-32 h-32 rounded-full bg-radial-[closest-side] from-[#C8A46B]/20 via-[#C8A46B]/8 to-transparent animate-gold-pulse pointer-events-none z-[24]"
-                  style={{
-                    top: "50%",
-                    left: "50%",
-                    marginTop: "-64px",
-                    marginLeft: "-64px",
-                  }}
-                />
 
                 {/* ===== GOLD WAX SEAL (centered exactly at flap intersection) ===== */}
                 <motion.div

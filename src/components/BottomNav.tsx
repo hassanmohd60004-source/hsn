@@ -3,7 +3,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Home, Calendar, MapPin } from "lucide-react";
-import { BabyBreath } from "@/components/decorations/FloralSVGs";
 
 export default function BottomNav() {
   const handleScroll = (id: string) => {
@@ -38,7 +37,6 @@ export default function BottomNav() {
       transition={{ duration: 0.8, delay: 1, ease: [0.16, 1, 0.3, 1] as const }}
       className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-[90%] max-w-[320px] md:hidden"
     >
-      <BabyBreath className="absolute -top-5 left-1/2 -translate-x-1/2 w-12 h-8 opacity-30 pointer-events-none" />
       <div className="bg-white/80 backdrop-blur-lg border border-[#DFD5C6]/40 rounded-full py-3 px-6 shadow-2xl flex items-center justify-between gap-2">
         {navItems.map((item, index) => (
           <button

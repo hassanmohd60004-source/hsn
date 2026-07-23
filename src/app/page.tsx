@@ -11,8 +11,6 @@ import Timeline from "@/components/Timeline";
 import GoogleMaps from "@/components/GoogleMaps";
 import RSVP from "@/components/RSVP";
 import BottomNav from "@/components/BottomNav";
-import FloatingPetals from "@/components/decorations/FloatingPetals";
-import SparkleField from "@/components/decorations/SparkleField";
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,10 +21,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen relative bg-background">
-      {/* ─── Global Atmospheric Overlays ─── */}
-      <FloatingPetals />
-      <SparkleField density="light" />
-
       <AnimatePresence mode="wait">
         {!isOpen ? (
           <Envelope

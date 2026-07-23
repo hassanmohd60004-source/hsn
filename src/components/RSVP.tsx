@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, X, CalendarCheck, Heart, User, Users, Phone, MessageSquare } from "lucide-react";
 import { playPaperRustle } from "@/utils/audio";
 import confetti from "canvas-confetti";
-import { FloralCorner, GoldFloralLine, ChampagneRose } from "@/components/decorations/FloralSVGs";
 
 /* ───────── Ornamental SVG Divider ───────── */
 const OrnamentalDivider = () => (
@@ -31,7 +30,30 @@ const OrnamentalDivider = () => (
   </svg>
 );
 
-
+/* ───────── Decorative Frame Corner ───────── */
+const FrameCorner = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 50 50"
+    className={`w-8 h-8 text-[#C8A46B] ${className}`}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M2 48 L2 15 Q2 2 15 2 L48 2"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      opacity="0.5"
+    />
+    <path
+      d="M8 48 L8 20 Q8 8 20 8 L48 8"
+      stroke="currentColor"
+      strokeWidth="0.8"
+      opacity="0.25"
+    />
+    <circle cx="2" cy="48" r="2" fill="currentColor" opacity="0.4" />
+    <circle cx="48" cy="2" r="2" fill="currentColor" opacity="0.4" />
+  </svg>
+);
 
 export default function RSVP() {
   const [name, setName] = useState("");
@@ -167,20 +189,20 @@ export default function RSVP() {
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 right-20 w-72 h-72 bg-[#C8A46B]/[0.03] rounded-full blur-3xl" />
         <div className="absolute bottom-20 left-20 w-96 h-96 bg-[#C8A46B]/[0.02] rounded-full blur-3xl" />
-        {/* Floating rose */}
+        {/* Floating heart */}
         <motion.div
           animate={{ y: [-8, 8, -8], rotate: [-5, 5, -5] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-16 right-12 w-28 h-28 opacity-40 text-[#C8A46B]"
+          className="absolute top-16 right-16"
         >
-          <ChampagneRose className="w-full h-full" />
+          <Heart className="w-20 h-20 text-[#C8A46B]/[0.08] stroke-1" />
         </motion.div>
         <motion.div
           animate={{ y: [6, -6, 6], rotate: [3, -3, 3] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-24 left-8 w-24 h-24 opacity-35 text-[#C8A46B]"
+          className="absolute bottom-24 left-12"
         >
-          <ChampagneRose className="w-full h-full" />
+          <Heart className="w-14 h-14 text-[#C8A46B]/[0.06] stroke-1" />
         </motion.div>
       </div>
 
@@ -200,7 +222,6 @@ export default function RSVP() {
             تأكيد الحضور
           </h2>
           <OrnamentalDivider />
-          <GoldFloralLine className="w-56 md:w-72 h-8 mx-auto opacity-50" />
           <p className="text-sm text-gray-500 font-arabic max-w-md mx-auto leading-relaxed">
             يرجى تأكيد حضوركم لمساعدتنا في تنظيم الترتيبات الخاصة بكم
           </p>
@@ -242,10 +263,10 @@ export default function RSVP() {
                 <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#C8A46B]/30 to-transparent" />
 
                 {/* Corner decorations */}
-                <FloralCorner className="absolute -top-3 -right-3 w-28 h-28 opacity-60 pointer-events-none" />
-                <FloralCorner className="absolute -top-3 -left-3 w-28 h-28 -scale-x-100 opacity-60 pointer-events-none" />
-                <FloralCorner className="absolute -bottom-3 -right-3 w-28 h-28 -scale-y-100 opacity-60 pointer-events-none" />
-                <FloralCorner className="absolute -bottom-3 -left-3 w-28 h-28 scale-x-[-1] scale-y-[-1] opacity-60 pointer-events-none" />
+                <FrameCorner className="absolute top-3 left-3" />
+                <FrameCorner className="absolute top-3 right-3 -scale-x-100" />
+                <FrameCorner className="absolute bottom-3 left-3 -scale-y-100" />
+                <FrameCorner className="absolute bottom-3 right-3 scale-x-[-1] scale-y-[-1]" />
 
                 {/* Status icon */}
                 <motion.div
@@ -328,10 +349,8 @@ export default function RSVP() {
                 <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-[#C8A46B] to-transparent" />
 
                 {/* Corner decorations */}
-                <FloralCorner className="absolute -top-3 -right-3 w-28 h-28 opacity-60 pointer-events-none" />
-                <FloralCorner className="absolute -top-3 -left-3 w-28 h-28 -scale-x-100 opacity-60 pointer-events-none" />
-                <FloralCorner className="absolute -bottom-3 -right-3 w-28 h-28 -scale-y-100 opacity-60 pointer-events-none" />
-                <FloralCorner className="absolute -bottom-3 -left-3 w-28 h-28 scale-x-[-1] scale-y-[-1] opacity-60 pointer-events-none" />
+                <FrameCorner className="absolute top-3 left-3" />
+                <FrameCorner className="absolute top-3 right-3 -scale-x-100" />
 
                 {/* Mandatory Notice Banner */}
                 <div className="bg-[#C8A46B]/5 border border-[#C8A46B]/15 rounded-2xl p-4 text-center text-xs md:text-sm text-[#9E7D46] font-arabic leading-relaxed">

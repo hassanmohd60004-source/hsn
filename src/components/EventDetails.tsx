@@ -4,7 +4,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import { MapPin, Calendar, Clock } from "lucide-react";
 import { playPaperRustle } from "@/utils/audio";
-import { FloralCorner, GoldFloralLine } from "@/components/decorations/FloralSVGs";
 
 interface EventDetailsProps {
   hallName: string;
@@ -37,7 +36,31 @@ const OrnamentalDivider = () => (
   </svg>
 );
 
-
+/* ───────── Corner Flourish ───────── */
+const CornerFlourish = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 60 60"
+    className={`w-10 h-10 ${className}`}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M5 55 Q5 30 20 20 Q30 15 40 10 Q50 5 55 5"
+      stroke="#C8A46B"
+      strokeWidth="1.2"
+      opacity="0.4"
+      fill="none"
+    />
+    <path
+      d="M10 55 Q10 35 25 25 Q35 18 50 10"
+      stroke="#C8A46B"
+      strokeWidth="0.8"
+      opacity="0.25"
+      fill="none"
+    />
+    <circle cx="55" cy="5" r="2" fill="#C8A46B" opacity="0.5" />
+  </svg>
+);
 
 /* ───────── Card data ───────── */
 const getCards = (hallName: string, address: string, gregorianDate: string, hijriDate: string) => [
@@ -95,7 +118,7 @@ export default function EventDetails({
   const cards = getCards(hallName, address, gregorianDate, hijriDate);
 
   return (
-    <section id="details" className="relative py-28 px-6 bg-[#F7F5F2] bg-eucalyptus-pattern overflow-hidden">
+    <section id="details" className="relative py-28 px-6 bg-[#F7F5F2] overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-[#C8A46B]/[0.03] rounded-full blur-3xl" />
@@ -127,7 +150,6 @@ export default function EventDetails({
             تفاصيل المناسبة
           </h2>
           <OrnamentalDivider />
-          <GoldFloralLine className="w-56 md:w-72 h-8 mx-auto opacity-50" />
         </motion.div>
 
         {/* ─── Cards Grid ─── */}
@@ -156,8 +178,8 @@ export default function EventDetails({
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 group-hover:w-full h-[2px] bg-gradient-to-r from-transparent via-[#C8A46B] to-transparent transition-all duration-700" />
 
                   {/* Corner flourishes */}
-                  <FloralCorner className="absolute -top-2 -right-2 w-24 h-24 opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                  <FloralCorner className="absolute -bottom-2 -left-2 w-24 h-24 scale-x-[-1] scale-y-[-1] opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  <CornerFlourish className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <CornerFlourish className="absolute bottom-2 left-2 rotate-180 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                   {/* Icon Container */}
                   <div className="relative mb-6">
