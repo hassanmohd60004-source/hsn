@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cairo, Cormorant_Garamond, Amiri, Aref_Ruqaa, El_Messiri, Marhey, Great_Vibes, Cinzel } from "next/font/google";
+import { Cairo, Cormorant_Garamond, Amiri, Aref_Ruqaa, El_Messiri, Marhey } from "next/font/google";
 import "./globals.css";
 
 const cairo = Cairo({
@@ -13,20 +13,6 @@ const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-cormorant",
-  display: "swap",
-});
-
-const greatVibes = Great_Vibes({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-great-vibes",
-  display: "swap",
-});
-
-const cinzel = Cinzel({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-cinzel",
   display: "swap",
 });
 
@@ -84,7 +70,7 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className={`${cairo.variable} ${cormorant.variable} ${greatVibes.variable} ${cinzel.variable} ${amiri.variable} ${arefRuqaa.variable} ${elMessiri.variable} ${marhey.variable} h-full antialiased`}
+      className={`${cairo.variable} ${cormorant.variable} ${amiri.variable} ${arefRuqaa.variable} ${elMessiri.variable} ${marhey.variable} h-full antialiased`}
     >
       <body className="min-h-full font-arabic antialiased bg-background text-foreground bg-grain">
         {children}

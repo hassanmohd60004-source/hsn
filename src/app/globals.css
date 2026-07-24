@@ -17,8 +17,6 @@
   
   --font-arabic: var(--font-cairo), 'Cairo', sans-serif;
   --font-english: var(--font-cormorant), 'Cormorant Garamond', serif;
-  --font-greatvibes: var(--font-great-vibes), 'Great Vibes', cursive;
-  --font-cinzel: var(--font-cinzel), 'Cinzel', serif;
   --font-calligraphy: var(--font-amiri), 'Amiri', serif;
   --font-ruqaa: var(--font-ruqaa), 'Aref Ruqaa', serif;
   --font-messiri: var(--font-messiri), 'El Messiri', serif;
@@ -284,4 +282,10 @@ html, body {
 ::selection {
   background-color: rgba(200, 164, 107, 0.25);
   color: var(--foreground);
+}
+
+/* 3D book cover utilities */
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }

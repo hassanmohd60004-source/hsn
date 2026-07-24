@@ -1,10 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React from "react";
 import { weddingConfig } from "@/config/wedding";
-import LuxuryLandingCover from "@/components/LuxuryLandingCover";
-import Envelope from "@/components/Envelope";
 import HeroInvitation from "@/components/HeroInvitation";
 import InvitationMessage from "@/components/InvitationMessage";
 import EventDetails from "@/components/EventDetails";
@@ -14,92 +11,43 @@ import RSVP from "@/components/RSVP";
 import BottomNav from "@/components/BottomNav";
 
 export default function Home() {
-  const [stage, setStage] = useState<"cover" | "envelope" | "content">("cover");
-
-  const handleStartEnvelope = () => {
-    setStage("envelope");
-  };
-
-  const handleOpenEnvelope = () => {
-    setStage("content");
-  };
-
   return (
-    <main className="min-h-screen relative bg-background">
-      <AnimatePresence mode="wait">
-        {stage === "cover" && (
-          <motion.div
-            key="cover"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.8 }}
-          >
-            <LuxuryLandingCover
-              brideName="Noura"
-              groomName="Ahmed"
-              onExplore={handleStartEnvelope}
-            />
-          </motion.div>
-        )}
+    <main className="min-h-screen relative bg-background flex flex-col pb-20 md:pb-0">
+      {/* Hero Section */}
+      <HeroInvitation
+        brideName={weddingConfig.brideName}
+        groomName={weddingConfig.groomName}
+        countdownDate={weddingConfig.countdownDate}
+        hijriDate={weddingConfig.hijriDate}
+        gregorianDate={weddingConfig.gregorianDate}
+      />
 
-        {stage === "envelope" && (
-          <Envelope
-            key="envelope"
-            onOpen={handleOpenEnvelope}
-            brideName={weddingConfig.brideName}
-            groomName={weddingConfig.groomName}
-            brideNameEn={weddingConfig.brideNameEn}
-            groomNameEn={weddingConfig.groomNameEn}
-          />
-        )}
+      {/* Invitation Message */}
+      <InvitationMessage text={weddingConfig.invitationText} />
 
-        {stage === "content" && (
-          <motion.div
-            key="content"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
-            className="flex flex-col min-h-screen pb-20 md:pb-0"
-          >
-            {/* Hero Section */}
-            <HeroInvitation
-              brideName={weddingConfig.brideName}
-              groomName={weddingConfig.groomName}
-              countdownDate={weddingConfig.countdownDate}
-              hijriDate={weddingConfig.hijriDate}
-              gregorianDate={weddingConfig.gregorianDate}
-            />
+      {/* Google Maps Location */}
+      <GoogleMaps
+        embedUrl={weddingConfig.googleMapsEmbedUrl}
+        mapsLink={weddingConfig.googleMapsLink}
+        hallName={weddingConfig.hallName}
+      />
 
-            {/* Invitation Message */}
-            <InvitationMessage text={weddingConfig.invitationText} />
+      {/* Event Details */}
+      <EventDetails
+        hallName={weddingConfig.hallName}
+        address={weddingConfig.address}
+        gregorianDate={weddingConfig.gregorianDate}
+        hijriDate={weddingConfig.hijriDate}
+      />
 
-            {/* Google Maps Location */}
-            <GoogleMaps
-              embedUrl={weddingConfig.googleMapsEmbedUrl}
-              mapsLink={weddingConfig.googleMapsLink}
-              hallName={weddingConfig.hallName}
-            />
+      {/* Event Timeline */}
+      <Timeline events={weddingConfig.timeline} />
 
-            {/* Event Details */}
-            <EventDetails
-              hallName={weddingConfig.hallName}
-              address={weddingConfig.address}
-              gregorianDate={weddingConfig.gregorianDate}
-              hijriDate={weddingConfig.hijriDate}
-            />
+      {/* RSVP Form */}
+      <RSVP />
 
-            {/* Event Timeline */}
-            <Timeline events={weddingConfig.timeline} />
-
-            {/* RSVP Form */}
-            <RSVP />
-
-            {/* Mobile Bottom Floating Nav Bar */}
-            <BottomNav />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Mobile Bottom Floating Nav Bar */}
+      <BottomNav />
     </main>
   );
 }
