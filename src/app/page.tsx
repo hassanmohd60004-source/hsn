@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { weddingConfig } from "@/config/wedding";
+import LuxuryLandingCover from "@/components/LuxuryLandingCover";
 import Envelope from "@/components/Envelope";
-import HeroIllustrationLanding from "@/components/HeroIllustrationLanding";
 import HeroInvitation from "@/components/HeroInvitation";
 import InvitationMessage from "@/components/InvitationMessage";
 import EventDetails from "@/components/EventDetails";
@@ -14,16 +14,36 @@ import RSVP from "@/components/RSVP";
 import BottomNav from "@/components/BottomNav";
 
 export default function Home() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [stage, setStage] = useState<"cover" | "envelope" | "content">("cover");
+
+  const handleStartEnvelope = () => {
+    setStage("envelope");
+  };
 
   const handleOpenEnvelope = () => {
-    setIsOpen(true);
+    setStage("content");
   };
 
   return (
     <main className="min-h-screen relative bg-background">
       <AnimatePresence mode="wait">
-        {!isOpen ? (
+        {stage === "cover" && (
+          <motion.div
+            key="cover"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.8 }}
+          >
+            <LuxuryLandingCover
+              brideName="Noura"
+              groomName="Ahmed"
+              onExplore={handleStartEnvelope}
+            />
+          </motion.div>
+        )}
+
+        {stage === "envelope" && (
           <Envelope
             key="envelope"
             onOpen={handleOpenEnvelope}
@@ -32,7 +52,9 @@ export default function Home() {
             brideNameEn={weddingConfig.brideNameEn}
             groomNameEn={weddingConfig.groomNameEn}
           />
-        ) : (
+        )}
+
+        {stage === "content" && (
           <motion.div
             key="content"
             initial={{ opacity: 0 }}
@@ -40,14 +62,6 @@ export default function Home() {
             transition={{ duration: 1.5, ease: "easeOut" }}
             className="flex flex-col min-h-screen pb-20 md:pb-0"
           >
-            {/* Top Luxury Watercolor Landing Cover Page */}
-            <HeroIllustrationLanding
-              brideName={weddingConfig.brideName}
-              groomName={weddingConfig.groomName}
-              brideNameEn={weddingConfig.brideNameEn}
-              groomNameEn={weddingConfig.groomNameEn}
-            />
-
             {/* Hero Section */}
             <HeroInvitation
               brideName={weddingConfig.brideName}
