@@ -21,6 +21,8 @@
   --font-ruqaa: var(--font-ruqaa), 'Aref Ruqaa', serif;
   --font-messiri: var(--font-messiri), 'El Messiri', serif;
   --font-marhey: var(--font-marhey), 'Marhey', sans-serif;
+  --font-vibes: var(--font-great-vibes), 'Great Vibes', cursive;
+  --font-cinzel: var(--font-cinzel), 'Cinzel', serif;
 }
 
 html, body {

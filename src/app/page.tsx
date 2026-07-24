@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { weddingConfig } from "@/config/wedding";
 import Envelope from "@/components/Envelope";
+import HeroIllustrationLanding from "@/components/HeroIllustrationLanding";
 import HeroInvitation from "@/components/HeroInvitation";
 import InvitationMessage from "@/components/InvitationMessage";
 import EventDetails from "@/components/EventDetails";
@@ -39,6 +40,14 @@ export default function Home() {
             transition={{ duration: 1.5, ease: "easeOut" }}
             className="flex flex-col min-h-screen pb-20 md:pb-0"
           >
+            {/* Top Luxury Watercolor Landing Cover Page */}
+            <HeroIllustrationLanding
+              brideName={weddingConfig.brideName}
+              groomName={weddingConfig.groomName}
+              brideNameEn={weddingConfig.brideNameEn}
+              groomNameEn={weddingConfig.groomNameEn}
+            />
+
             {/* Hero Section */}
             <HeroInvitation
               brideName={weddingConfig.brideName}
